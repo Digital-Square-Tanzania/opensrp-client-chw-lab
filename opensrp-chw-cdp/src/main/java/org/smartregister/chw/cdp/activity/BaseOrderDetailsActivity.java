@@ -58,6 +58,8 @@ public class BaseOrderDetailsActivity extends SecuredActivity implements BaseOrd
     protected Group tvRestockGroup;
     protected ConstraintLayout responseLayout;
 
+    protected Long requestedAtMillis;
+
 
     public static void startMe(Activity activity, CommonPersonObjectClient pc) {
         Intent intent = new Intent(activity, BaseOrderDetailsActivity.class);
@@ -91,7 +93,7 @@ public class BaseOrderDetailsActivity extends SecuredActivity implements BaseOrd
         condomType.setText(Utils.getValue(pc, DBConstants.KEY.CONDOM_TYPE, true));
         condomBrand.setText(Utils.getValue(pc, DBConstants.KEY.CONDOM_BRAND, true));
         quantity.setText(Utils.getValue(pc, DBConstants.KEY.QUANTITY_REQ, false));
-        Long requestedAtMillis = Long.parseLong(Utils.getValue(pc, DBConstants.KEY.REQUESTED_AT, false));
+        requestedAtMillis = Long.parseLong(Utils.getValue(pc, DBConstants.KEY.REQUESTED_AT, false));
         requestDate.setText(CdpUtil.formatTimeStamp(requestedAtMillis));
         String requester = Utils.getValue(pc, DBConstants.KEY.REQUESTER, false);
         requesterName.setText(requester);
@@ -241,7 +243,7 @@ public class BaseOrderDetailsActivity extends SecuredActivity implements BaseOrd
     private void startStockDistributionForm() {
         try {
             String condomType = Utils.getValue(client, DBConstants.KEY.CONDOM_TYPE, false);
-            presenter.startForm(Constants.FORMS.CDP_CONDOM_DISTRIBUTION, null, condomType);
+            presenter.startForm(Constants.FORMS.CDP_CONDOM_DISTRIBUTION, null, condomType, null);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -250,7 +252,7 @@ public class BaseOrderDetailsActivity extends SecuredActivity implements BaseOrd
     private void startReceivedForm(){
         try {
             String condomType = Utils.getValue(client, DBConstants.KEY.CONDOM_TYPE, false);
-            presenter.startForm(Constants.FORMS.CDP_RECEIVE_CONDOM_FACILITY, null, condomType);
+            presenter.startForm(Constants.FORMS.CDP_RECEIVE_CONDOM_FACILITY, null, condomType, requestedAtMillis);
         } catch (Exception e) {
             e.printStackTrace();
         }

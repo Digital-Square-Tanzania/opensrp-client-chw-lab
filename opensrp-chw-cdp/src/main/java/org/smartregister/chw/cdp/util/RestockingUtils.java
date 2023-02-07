@@ -57,13 +57,19 @@ public class RestockingUtils {
             TextView tvRestockingDate = view.findViewById(R.id.tv_restocking_date_male);
             TextView tvQuantity = view.findViewById(R.id.tv_quantity_male);
             TextView tvIssuingOrganization = view.findViewById(R.id.tv_issuing_organization_male);
+            TextView tvIssuingOrganizationLabel = view.findViewById(R.id.tv_issuing_organization_male_label);
 
 
             tvType.setText(context.getString(context.getResources().getIdentifier(condomType, "string", context.getPackageName())));
             tvBrand.setText(context.getString(context.getResources().getIdentifier(getMapValue(vals, "male_condom_brand"), "string", context.getPackageName())));
             tvRestockingDate.setText(getMapValue(vals, "condom_restock_date"));
             tvQuantity.setText(getMapValue(vals, "restocked_male_condoms"));
-            tvIssuingOrganization.setText(getMapValue(vals, "issuing_organization").toUpperCase(Locale.ROOT));
+            if (StringUtils.isNotBlank(getMapValue(vals, "issuing_organization"))) {
+                tvIssuingOrganization.setText(getMapValue(vals, "issuing_organization").toUpperCase(Locale.ROOT));
+            }else{
+                tvIssuingOrganization.setVisibility(View.GONE);
+                tvIssuingOrganizationLabel.setVisibility(View.GONE);
+            }
 
         }
         if (condomType.equalsIgnoreCase("female_condom")) {
@@ -73,12 +79,18 @@ public class RestockingUtils {
             TextView tvRestockingDate = view.findViewById(R.id.tv_restocking_date_female);
             TextView tvQuantity = view.findViewById(R.id.tv_quantity_female);
             TextView tvIssuingOrganization = view.findViewById(R.id.tv_issuing_organization_female);
+            TextView tvIssuingOrganizationLabel = view.findViewById(R.id.tv_issuing_organization_female_label);
 
             tvType.setText(context.getString(context.getResources().getIdentifier(condomType, "string", context.getPackageName())));
             tvBrand.setText(context.getString(context.getResources().getIdentifier(getMapValue(vals, "female_condom_brand"), "string", context.getPackageName())));
             tvRestockingDate.setText(getMapValue(vals, "condom_restock_date"));
             tvQuantity.setText(getMapValue(vals, "restocked_female_condoms"));
-            tvIssuingOrganization.setText(getMapValue(vals, "issuing_organization").toUpperCase(Locale.ROOT));
+            if (StringUtils.isNotBlank(getMapValue(vals, "issuing_organization"))) {
+                tvIssuingOrganization.setText(getMapValue(vals, "issuing_organization").toUpperCase(Locale.ROOT));
+            }else{
+                tvIssuingOrganization.setVisibility(View.GONE);
+                tvIssuingOrganizationLabel.setVisibility(View.GONE);
+            }
         }
     }
 

@@ -39,7 +39,7 @@ public interface BaseOrderDetailsContract {
 
         void saveMarkAsReceivedForm(String jsonString);
 
-        void startForm(String formName, String entityId, String condomType) throws Exception;
+        void startForm(String formName, String entityId, String condomType, Long requestedAtMillis) throws Exception;
 
         @Nullable
         View getView();
@@ -63,8 +63,6 @@ public interface BaseOrderDetailsContract {
     }
 
     interface Model {
-
-        JSONObject getFormAsJson(String formName, String entityId, String condomType) throws Exception;
 
         JSONObject getFormAsJson(String formName, String entityId, String condomType, String quantity) throws Exception;
 

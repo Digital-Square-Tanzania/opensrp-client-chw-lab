@@ -30,7 +30,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 import timber.log.Timber;
 
+import static org.smartregister.chw.cdp.util.CdpUtil.addClient;
+import static org.smartregister.chw.cdp.util.CdpUtil.addEvent;
 import static org.smartregister.chw.cdp.util.CdpUtil.getClientProcessorForJava;
+import static org.smartregister.chw.cdp.util.CdpUtil.getUniqueIdRepository;
+import static org.smartregister.chw.cdp.util.CdpUtil.updateOpenSRPId;
 
 public class BaseCdpRegisterInteractor implements BaseCdpRegisterContract.Interactor {
 
@@ -90,12 +94,6 @@ public class BaseCdpRegisterInteractor implements BaseCdpRegisterContract.Intera
         appExecutors.diskIO().execute(runnable);
     }
 
-
-    public UniqueIdRepository getUniqueIdRepository() {
-        return CdpLibrary.getInstance().context().getUniqueIdRepository();
-    }
-
-
     public void saveRegistration(final List<CdpOutletEventClient> cdpOutletEventClientList, final String jsonString,
                                  final RegisterParams registerParams, final BaseCdpRegisterContract.InteractorCallBack callBack) {
         Runnable runnable = () -> {
@@ -132,52 +130,6 @@ public class BaseCdpRegisterInteractor implements BaseCdpRegisterContract.Intera
             getAllSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
         } catch (Exception e) {
             Timber.e(e, "OpdRegisterInteractor --> saveRegistration");
-        }
-    }
-
-    private void addClient(@NonNull RegisterParams params, Client baseClient) throws JSONException {
-        JSONObject clientJson = new JSONObject(CdpJsonFormUtils.gson.toJson(baseClient));
-        if (params.isEditMode()) {
-            try {
-                OutletJsonFormUtil.mergeAndSaveClient(getSyncHelper(), baseClient);
-            } catch (Exception e) {
-                Timber.e(e, "ChwAllClientRegisterInteractor --> mergeAndSaveClient");
-            }
-        } else {
-            getSyncHelper().addClient(baseClient.getBaseEntityId(), clientJson);
-        }
-    }
-
-
-
-    private void updateOpenSRPId(String jsonString, RegisterParams params, Client baseClient) {
-        if (params.isEditMode()) {
-            // UnAssign current OpenSRP ID
-            if (baseClient != null) {
-                String newOpenSrpId = baseClient.getIdentifier(CdpJsonFormUtils.OPENSRP_ID).replace("-", "");
-                String currentOpenSrpId = JsonFormUtils.getString(jsonString, CdpJsonFormUtils.CURRENT_OPENSRP_ID).replace("-", "");
-                if (!newOpenSrpId.equals(currentOpenSrpId)) {
-                    //OpenSRP ID was changed
-                    getUniqueIdRepository().open(currentOpenSrpId);
-                }
-            }
-
-        } else {
-            if (baseClient != null) {
-                String openSrpId = baseClient.getIdentifier(CdpJsonFormUtils.OPENSRP_ID);
-                if (StringUtils.isNotBlank(openSrpId)) {
-                    //Mark OpenSRP ID as used
-                    getUniqueIdRepository().close(openSrpId);
-                }
-            }
-        }
-    }
-
-    private void addEvent(RegisterParams params, List<String> currentFormSubmissionIds, Event baseEvent) throws JSONException {
-        if (baseEvent != null) {
-            JSONObject eventJson = new JSONObject(CdpJsonFormUtils.gson.toJson(baseEvent));
-            getSyncHelper().addEvent(baseEvent.getBaseEntityId(), eventJson, params.getStatus());
-            currentFormSubmissionIds.add(eventJson.getString(EventClientRepository.event_column.formSubmissionId.toString()));
         }
     }
 

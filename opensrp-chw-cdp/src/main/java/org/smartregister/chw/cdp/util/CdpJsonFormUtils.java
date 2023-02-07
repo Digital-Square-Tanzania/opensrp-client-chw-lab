@@ -89,8 +89,8 @@ public class CdpJsonFormUtils extends org.smartregister.util.JsonFormUtils {
         String entityId = getString(jsonForm, ENTITY_ID);
         String encounter_type = jsonForm.optString(Constants.JSON_FORM_EXTRA.ENCOUNTER_TYPE);
 
-        if (Constants.EVENT_TYPE.CDP_REGISTRATION.equals(encounter_type)) {
-            encounter_type = Constants.TABLES.CDP_REGISTER;
+        if (Constants.EVENT_TYPE.CDP_RESTOCK.equals(encounter_type)) {
+            encounter_type = Constants.TABLES.CDP_OUTLET_STOCK_COUNT;
         } else if (Constants.EVENT_TYPE.CDP_OUTLET_VISIT.equals(encounter_type)) {
             encounter_type = Constants.TABLES.CDP_OUTLET_VISIT;
         }

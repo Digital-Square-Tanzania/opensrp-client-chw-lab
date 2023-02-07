@@ -1,8 +1,15 @@
 package org.smartregister.chw.cdp.presenter;
 
+import static com.vijay.jsonwizard.constants.JsonFormConstants.FIELDS;
+import static com.vijay.jsonwizard.constants.JsonFormConstants.MIN_DATE;
+import static com.vijay.jsonwizard.constants.JsonFormConstants.STEP1;
+
+import static org.smartregister.chw.cdp.util.CdpUtil.formatTimeStamp;
+
 import android.content.Context;
 
 import org.jetbrains.annotations.Nullable;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.chw.cdp.contract.BaseOrderDetailsContract;
 import org.smartregister.chw.cdp.dao.CdpOrderDao;
@@ -10,6 +17,7 @@ import org.smartregister.chw.cdp.domain.OrderFeedbackObject;
 import org.smartregister.chw.cdp.util.Constants;
 import org.smartregister.chw.cdp.util.DBConstants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.util.JsonFormUtils;
 import org.smartregister.util.Utils;
 
 import java.lang.ref.WeakReference;
@@ -69,13 +77,20 @@ public class BaseOrderDetailsPresenter implements BaseOrderDetailsContract.Prese
     }
 
     @Override
-    public void startForm(String formName, String entityId, String condomType) throws Exception {
+    public void startForm(String formName, String entityId, String condomType, Long requestedAtMillis) throws Exception {
         JSONObject form;
         if (feedbackObject != null) {
             form = model.getFormAsJson(formName, entityId, condomType, feedbackObject.getResponseQuantity());
         } else {
-            form = model.getFormAsJson(formName, entityId, condomType);
+            form = model.getFormAsJson(formName, entityId, condomType, null);
         }
+
+        if (formName.equals(Constants.FORMS.CDP_RECEIVE_CONDOM_FACILITY) && requestedAtMillis != null) {
+            JSONObject condomReceiveDate = JsonFormUtils.getFieldJSONObject(form.getJSONObject(STEP1).getJSONArray(FIELDS), "condom_receive_date");
+            if (condomReceiveDate != null)
+                condomReceiveDate.put(MIN_DATE, formatTimeStamp(requestedAtMillis));
+        }
+
         if (getView() != null)
             getView().startFormActivity(form);
     }

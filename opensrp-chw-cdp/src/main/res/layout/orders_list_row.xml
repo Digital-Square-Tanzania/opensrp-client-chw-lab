@@ -106,6 +106,29 @@
         app:layout_constraintEnd_toStartOf="@id/v_guideline"
         tools:text="20" />
 
+    <TextView
+        android:id="@+id/request_date_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/request_date_label"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/quantity_label" />
+
+    <TextView
+        android:id="@+id/request_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/black"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@id/request_date_label"
+        app:layout_constraintTop_toBottomOf="@id/condom_quantity"
+        app:layout_constraintEnd_toStartOf="@id/v_guideline" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/v_guideline"
         android:layout_width="wrap_content"

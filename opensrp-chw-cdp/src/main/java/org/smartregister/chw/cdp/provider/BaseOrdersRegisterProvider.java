@@ -28,16 +28,18 @@ import org.smartregister.view.dialog.SortOption;
 import org.smartregister.view.viewholder.OnClickFormLauncher;
 
 import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 import timber.log.Timber;
 
 public class BaseOrdersRegisterProvider implements RecyclerViewProvider<OrdersViewHolder> {
     private final LayoutInflater inflater;
-    private Context context;
-    private View.OnClickListener onClickListener;
+    protected Context context;
+    protected View.OnClickListener onClickListener;
     private View.OnClickListener paginationClickListener;
-    private LocationRepository locationRepository;
+    protected LocationRepository locationRepository;
 
     public BaseOrdersRegisterProvider(Context context, View.OnClickListener onClickListener, View.OnClickListener paginationClickListener) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -57,6 +59,7 @@ public class BaseOrdersRegisterProvider implements RecyclerViewProvider<OrdersVi
         try {
 
             String healthFacilityId = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.RECEIVING_ORDER_FACILITY, true);
+            String requestedAt = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.REQUESTED_AT, true);
             String condomType = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.CONDOM_TYPE, true);
             String condomBrand = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.CONDOM_BRAND, true);
             String condomQuantity = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.QUANTITY_REQ, false);
@@ -67,15 +70,29 @@ public class BaseOrdersRegisterProvider implements RecyclerViewProvider<OrdersVi
                 String healthFacilityName = location.getProperties().getName();
                 viewHolder.health_facility.setText(healthFacilityName);
             }
+
+
+            SimpleDateFormat outputFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+            long timestamp = Long.parseLong(requestedAt);
+            Date date = new Date(timestamp);
+            String formattedDate = outputFormat.format(date);
+            viewHolder.request_date.setText(formattedDate);
+
             viewHolder.condom_type.setText(condomType);
             viewHolder.condom_brand.setText(condomBrand);
             viewHolder.quantity.setText(condomQuantity);
             viewHolder.status.setText(getStatusString(context, orderStatus));
-            if (orderStatus.equals(Constants.OrderStatus.FAILED)) {
-                viewHolder.status.setTextColor(context.getResources().getColor(R.color.error_color));
-            }
-            if (orderStatus.equals(Constants.OrderStatus.COMPLETE)) {
-                viewHolder.status.setTextColor(context.getResources().getColor(R.color.alert_complete_green));
+            switch (orderStatus) {
+                case Constants.OrderStatus.FAILED:
+                    viewHolder.status.setTextColor(context.getResources().getColor(R.color.error_color));
+                    break;
+                case Constants.OrderStatus.READY:
+                case Constants.OrderStatus.IN_TRANSIT:
+                    viewHolder.status.setTextColor(context.getResources().getColor(R.color.alert_in_progress_blue));
+                    break;
+                case Constants.OrderStatus.COMPLETE:
+                    viewHolder.status.setTextColor(context.getResources().getColor(R.color.alert_complete_green));
+                    break;
             }
             viewHolder.registerColumns.setOnClickListener(onClickListener);
             viewHolder.registerColumns.setTag(pc);

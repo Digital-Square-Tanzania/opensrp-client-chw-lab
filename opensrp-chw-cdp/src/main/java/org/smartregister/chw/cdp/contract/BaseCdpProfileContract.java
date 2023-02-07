@@ -3,6 +3,11 @@ package org.smartregister.chw.cdp.contract;
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONObject;
 import org.smartregister.chw.cdp.domain.OutletObject;
+import org.smartregister.chw.cdp.pojo.CdpOutletEventClient;
+import org.smartregister.chw.cdp.pojo.RegisterParams;
+import org.smartregister.chw.cdp.presenter.BaseCdpProfilePresenter;
+
+import java.util.List;
 
 public interface BaseCdpProfileContract {
     interface View extends InteractorCallBack {
@@ -28,10 +33,11 @@ public interface BaseCdpProfileContract {
 
         void saveForm(String jsonString);
 
+        void saveForm(String jsonString, RegisterParams registerParams);
+
         void startForm(String formName, String entityId, String metadata, String currentLocationId) throws Exception;
 
-        @Nullable
-        View getView();
+        @Nullable View getView();
 
         void refreshProfileBottom();
 
@@ -45,12 +51,15 @@ public interface BaseCdpProfileContract {
         void refreshProfileInfo();
 
         void saveRegistration(String jsonString, final BaseCdpProfileContract.InteractorCallBack callBack);
+
+        void saveRegistration(List<CdpOutletEventClient> cdpOutletEventClientList, String jsonString, RegisterParams registerParams, BaseCdpProfilePresenter baseCdpProfilePresenter);
     }
 
     interface Model {
 
         JSONObject getFormAsJson(String formName, String entityId, String currentLocationId) throws Exception;
 
+        List<CdpOutletEventClient> processRegistration(String jsonString);
     }
 
 

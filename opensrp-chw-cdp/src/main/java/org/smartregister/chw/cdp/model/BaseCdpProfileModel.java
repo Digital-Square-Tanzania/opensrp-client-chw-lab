@@ -6,11 +6,16 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.chw.cdp.contract.BaseCdpProfileContract;
 import org.smartregister.chw.cdp.dao.CdpDao;
+import org.smartregister.chw.cdp.pojo.CdpOutletEventClient;
 import org.smartregister.chw.cdp.util.CdpJsonFormUtils;
 import org.smartregister.chw.cdp.util.Constants;
+import org.smartregister.chw.cdp.util.OutletUtil;
 import org.smartregister.util.JsonFormUtils;
 
 import androidx.annotation.NonNull;
+
+import java.util.List;
+
 import timber.log.Timber;
 
 public class BaseCdpProfileModel implements BaseCdpProfileContract.Model {
@@ -30,5 +35,10 @@ public class BaseCdpProfileModel implements BaseCdpProfileContract.Model {
         }
 
         return form;
+    }
+
+    @Override
+    public List<CdpOutletEventClient> processRegistration(String jsonString) {
+        return OutletUtil.getOutletEventClient(jsonString);
     }
 }

@@ -63,6 +63,7 @@ public class BaseCdpRegisterFragmentModel implements BaseCdpRegisterFragmentCont
         columnList.add(Constants.TABLES.CDP_OUTLET+ "." + DBConstants.KEY.OUTLET_WARD_NAME);
         columnList.add(Constants.TABLES.CDP_OUTLET+ "." + DBConstants.KEY.FOCAL_PERSON_NAME);
         columnList.add(Constants.TABLES.CDP_OUTLET+ "." + DBConstants.KEY.FOCAL_PERSON_PHONE);
+        columnList.add(Constants.TABLES.CDP_OUTLET+ "." + DBConstants.KEY.IS_CLOSED);
 
         return columnList.toArray(new String[columnList.size()]);
     }

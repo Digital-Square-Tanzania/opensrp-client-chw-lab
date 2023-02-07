@@ -8,10 +8,13 @@ public class OutletObject implements Serializable {
     private String outletType;
     private String otherOutletType;
     private String outletWardName;
+    private String outletVillageStreetName;
     private String outletId;
     private String focalPersonName;
     private String focalPersonNumber;
     private String baseEntityId;
+
+    private boolean isClosed;
 
     public OutletObject() {
     }
@@ -38,6 +41,14 @@ public class OutletObject implements Serializable {
 
     public void setOutletWardName(String outletWardName) {
         this.outletWardName = outletWardName;
+    }
+
+    public String getOutletVillageStreetName() {
+        return outletVillageStreetName;
+    }
+
+    public void setOutletVillageStreetName(String outletVillageStreetName) {
+        this.outletVillageStreetName = outletVillageStreetName;
     }
 
     public String getOutletId() {
@@ -78,5 +89,13 @@ public class OutletObject implements Serializable {
 
     public void setBaseEntityId(String baseEntityId) {
         this.baseEntityId = baseEntityId;
+    }
+
+    public boolean isClosed() {
+        return isClosed;
+    }
+
+    public void setClosed(boolean closed) {
+        isClosed = closed;
     }
 }

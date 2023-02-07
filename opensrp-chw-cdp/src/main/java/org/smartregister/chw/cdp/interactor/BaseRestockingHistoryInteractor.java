@@ -43,7 +43,7 @@ public class BaseRestockingHistoryInteractor implements RestockingHistoryContrac
     @Override
     public void getMemberHistory(String memberID, Context context, RestockingHistoryContract.InteractorCallBack callBack) {
         final Runnable runnable = () -> {
-
+            CdpUtil.startClientProcessing();
             final List<Visit> visits = new ArrayList<>();
             try {
                 visits.addAll(VisitUtils.getVisits(memberID));

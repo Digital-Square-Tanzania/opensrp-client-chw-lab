@@ -29,6 +29,7 @@ public class DBConstants {
         public static final String REQUEST_TYPE = "request_type";
         public static final String FOR = "for";
         public static final String STATUS = "status";
+        public static final String GROUP_ID = "group_id";
         public static final String IS_CLOSED = "is_closed";
         public static final String AUTHORED_ON = "authored_on";
         public static final String TASK_ID = "task_id";

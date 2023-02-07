@@ -1,5 +1,14 @@
 package org.smartregister.chw.cdp.util;
 
+import static com.vijay.jsonwizard.constants.JsonFormConstants.OPENMRS_ENTITY;
+import static org.smartregister.chw.cdp.util.CdpJsonFormUtils.formTag;
+import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
+import static org.smartregister.util.JsonFormUtils.OPENMRS_ENTITY_ID;
+import static org.smartregister.util.JsonFormUtils.VALUE;
+import static org.smartregister.util.JsonFormUtils.generateRandomUUIDString;
+import static org.smartregister.util.JsonFormUtils.getJSONObject;
+import static org.smartregister.util.JsonFormUtils.getString;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONArray;
@@ -19,15 +28,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import timber.log.Timber;
-
-import static com.vijay.jsonwizard.constants.JsonFormConstants.OPENMRS_ENTITY;
-import static org.smartregister.chw.cdp.util.CdpJsonFormUtils.formTag;
-import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
-import static org.smartregister.util.JsonFormUtils.OPENMRS_ENTITY_ID;
-import static org.smartregister.util.JsonFormUtils.VALUE;
-import static org.smartregister.util.JsonFormUtils.generateRandomUUIDString;
-import static org.smartregister.util.JsonFormUtils.getJSONObject;
-import static org.smartregister.util.JsonFormUtils.getString;
 
 public class OutletJsonFormUtil {
 

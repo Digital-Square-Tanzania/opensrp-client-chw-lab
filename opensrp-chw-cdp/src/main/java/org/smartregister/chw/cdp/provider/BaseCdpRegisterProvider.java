@@ -2,6 +2,8 @@ package org.smartregister.chw.cdp.provider;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ import org.smartregister.cursoradapter.RecyclerViewProvider;
 import org.smartregister.util.Utils;
 import org.smartregister.view.contract.SmartRegisterClient;
 import org.smartregister.view.contract.SmartRegisterClients;
+import org.smartregister.view.customcontrols.FontVariant;
 import org.smartregister.view.dialog.FilterOption;
 import org.smartregister.view.dialog.ServiceModeOption;
 import org.smartregister.view.dialog.SortOption;
@@ -61,6 +64,16 @@ public class BaseCdpRegisterProvider implements RecyclerViewProvider<BaseCdpRegi
             String outletLocation = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.OUTLET_WARD_NAME, true);
             String outletType = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.OUTLET_TYPE, true);
             String otherOutletType = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.OTHER_OUTLET_TYPE, true);
+            String isClosed = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.IS_CLOSED, true);
+
+            if (isClosed.equals("1")) {
+                viewHolder.outlet_name.setTextColor(Color.GRAY);
+                viewHolder.outlet_name.setTypeface(viewHolder.outlet_name.getTypeface(), Typeface.ITALIC);
+
+                viewHolder.outlet_location.setTextColor(Color.GRAY);
+
+                viewHolder.outlet_type.setTextColor(Color.GRAY);
+            }
 
             viewHolder.outlet_name.setText(outletName);
             viewHolder.outlet_location.setText(outletLocation);
