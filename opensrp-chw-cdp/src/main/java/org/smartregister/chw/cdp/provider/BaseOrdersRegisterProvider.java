@@ -93,6 +93,8 @@ public class BaseOrdersRegisterProvider implements RecyclerViewProvider<OrdersVi
                 case Constants.OrderStatus.COMPLETE:
                     viewHolder.status.setTextColor(context.getResources().getColor(R.color.alert_complete_green));
                     break;
+                default:
+                    viewHolder.status.setTextColor(context.getResources().getColor(R.color.black));
             }
             viewHolder.registerColumns.setOnClickListener(onClickListener);
             viewHolder.registerColumns.setTag(pc);

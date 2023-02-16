@@ -3,13 +3,11 @@ package org.smartregister.chw.cdp.presenter;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.FIELDS;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.MIN_DATE;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.STEP1;
-
 import static org.smartregister.chw.cdp.util.CdpUtil.formatTimeStamp;
 
 import android.content.Context;
 
 import org.jetbrains.annotations.Nullable;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.chw.cdp.contract.BaseOrderDetailsContract;
 import org.smartregister.chw.cdp.dao.CdpOrderDao;

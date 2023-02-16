@@ -11,14 +11,11 @@ import org.smartregister.chw.cdp.util.Constants;
 import org.smartregister.chw.cdp.util.DBConstants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Location;
-import org.smartregister.domain.LocationTag;
 import org.smartregister.repository.LocationRepository;
-import org.smartregister.repository.LocationTagRepository;
 import org.smartregister.util.Utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 import timber.log.Timber;
@@ -74,6 +71,8 @@ public class BaseReceivedOrdersRegisterProvider extends BaseOrdersRegisterProvid
                 case Constants.OrderStatus.COMPLETE:
                     viewHolder.status.setTextColor(context.getResources().getColor(R.color.alert_complete_green));
                     break;
+                default:
+                    viewHolder.status.setTextColor(context.getResources().getColor(R.color.black));
             }
             viewHolder.registerColumns.setOnClickListener(onClickListener);
             viewHolder.registerColumns.setTag(pc);
