@@ -87,6 +87,8 @@ public interface Constants {
         String MALE_CONDOMS_OFFSET = "male_condoms_offset";
         String CONDOM_TYPE = "condom_type";
         String CONDOM_BRAND = "condom_brand";
+        String MALE_CONDOM_BRAND = "male_condom_brand";
+        String FEMALE_CONDOM_BRAND = "female_condom_brand";
         String CONDOMS_REQUESTED = "requested_condoms";
         String REQUEST_TYPE = "request_type";
         String QUANTITY_RES = "quantity_response";

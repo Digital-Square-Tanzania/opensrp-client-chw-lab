@@ -16,10 +16,22 @@ public class CdpStockingDao extends AbstractDao {
     private static final String stockLogTable = Constants.TABLES.CDP_STOCK_LOG;
     private static final String stockCountTable = Constants.TABLES.CDP_STOCK_COUNT;
 
-    public static void updateStockLogData(String locationId, String formSubmissionId, String chwName, String condomBrand, String maleCondomsOffset, String femaleCondomsOffset, String stockEventType, String issuingOrganization, String eventType, String restockingDate) {
+    public static void updateStockLogData(String locationId, String formSubmissionId, String chwName, String maleCondomBrand, String femaleCondomBrand, String maleCondomsOffset, String femaleCondomsOffset, String stockEventType, String issuingOrganization, String eventType, String restockingDate) {
 
 
-        String sqlUpdateStockLog = "INSERT INTO " + stockLogTable + "" + "    (id, entity_id, base_entity_id, chw_name,condom_brand, female_condoms_offset, male_condoms_offset, event_type, issuing_organization, stock_event_type, date_updated) " + "         VALUES ('" + formSubmissionId + "', '" + locationId + "', '" + formSubmissionId + "', '" + chwName + "','" + condomBrand + "' ,'" + femaleCondomsOffset + "', '" + maleCondomsOffset + "', '" + eventType + "', '" + issuingOrganization + "', '" + stockEventType + "', '" + restockingDate + "')" + "       ON CONFLICT (id) DO UPDATE" + "       SET entity_id = '" + locationId + "'," + "           chw_name = '" + chwName + "', " + "           condom_brand = '" + condomBrand + "', " + "           female_condoms_offset = '" + femaleCondomsOffset + "', " + "           male_condoms_offset = '" + maleCondomsOffset + "', " + "           stock_event_type = '" + stockEventType + "', " + "           event_type = '" + eventType + "', " + "           issuing_organization = '" + issuingOrganization + "', " + "           date_updated = '" + restockingDate + "'" + "       ";
+        String sqlUpdateStockLog = "INSERT INTO " + stockLogTable + "" + "    (id, entity_id, base_entity_id, chw_name, male_condom_brand, female_condom_brand, female_condoms_offset, male_condoms_offset, event_type, issuing_organization, stock_event_type, date_updated) " +
+                "         VALUES ('" + formSubmissionId + "', '" + locationId + "', '" + formSubmissionId + "', '" + chwName + "','" + maleCondomBrand + "' ,'"+ femaleCondomBrand + "' ,'" + femaleCondomsOffset + "', '" + maleCondomsOffset + "', '" + eventType + "', '" + issuingOrganization + "', '" + stockEventType + "', '" + restockingDate + "')" +
+                "       ON CONFLICT (id) DO UPDATE" +
+                "       SET entity_id = '" + locationId + "'," +
+                "           chw_name = '" + chwName + "', " +
+                "           male_condom_brand = '" + maleCondomBrand + "', " +
+                "           female_condom_brand = '" + femaleCondomBrand + "', " +
+                "           female_condoms_offset = '" + femaleCondomsOffset + "', " +
+                "           male_condoms_offset = '" + maleCondomsOffset + "', " +
+                "           stock_event_type = '" + stockEventType + "', " +
+                "           event_type = '" + eventType + "', " +
+                "           issuing_organization = '" + issuingOrganization + "', " +
+                "           date_updated = '" + restockingDate + "'" + "       ";
         updateDB(sqlUpdateStockLog);
     }
 
@@ -166,7 +178,15 @@ public class CdpStockingDao extends AbstractDao {
 
 
     public static List<String> getCondomBrands() {
-        String sql = "SELECT  DISTINCT condom_brand COLLATE NOCASE as condom_brand  FROM " + stockLogTable + " WHERE condom_brand <> '' AND condom_brand IS NOT NULL ";
+        String sql = "SELECT DISTINCT condom_brand FROM (\n" +
+                "   SELECT  DISTINCT male_condom_brand COLLATE NOCASE as condom_brand  FROM \n" +
+                "       "+stockLogTable+" \n" +
+                "   WHERE (male_condom_brand <> '' AND male_condom_brand IS NOT NULL)\n" +
+                "   UNION \n" +
+                "   SELECT  DISTINCT female_condom_brand COLLATE NOCASE as condom_brand  FROM \n" +
+                "       "+stockLogTable+" \n" +
+                "   WHERE (female_condom_brand <> '' AND female_condom_brand IS NOT NULL)\n" +
+                ") ";
 
         DataMap<String> dataMap = cursor -> getCursorValue(cursor, "condom_brand");
 
@@ -178,7 +198,14 @@ public class CdpStockingDao extends AbstractDao {
 
 
     public static Integer getCurrentCondomCountByBrand(String condomBrand, CondomStockLog.CondomType condomType) {
-        String sql = "SELECT * FROM " + stockLogTable + " WHERE condom_brand = '" + condomBrand + "' ";
+
+        String sql= null;
+        if(condomType.equals(CondomStockLog.CondomType.MALE)){
+            sql = "SELECT *, male_condom_brand as condom_brand FROM " + stockLogTable + " WHERE male_condom_brand = '" + condomBrand + "' ";
+        }else{
+            sql = "SELECT  *, female_condom_brand as condom_brand  FROM " + stockLogTable + " WHERE female_condom_brand = '" + condomBrand + "' ";
+        }
+
 
         AbstractDao.DataMap<CondomStockLog> dataMap = cursor -> {
             CondomStockLog condomStockLog = new CondomStockLog();

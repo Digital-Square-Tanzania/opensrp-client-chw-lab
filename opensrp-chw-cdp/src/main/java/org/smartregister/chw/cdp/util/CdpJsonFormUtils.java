@@ -156,7 +156,7 @@ public class CdpJsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 JSONObject referralHealthFacilities = JsonFormUtils.getFieldJSONObject(fields, Constants.JSON_FORM_KEY.RECEIVING_ORDER_FACILITY);
 
                 JSONArray options = referralHealthFacilities.getJSONArray("options");
-                String healthFacilityWithMsdCodeTagName = "Facility_msd_code";
+                String healthFacilityWithMsdCodeTagName = "Facility";
                 for (Location location : locations) {
                     Set<LocationTag> locationTags = location.getLocationTags();
                     if (locationTags.iterator().next().getName().equalsIgnoreCase(healthFacilityWithMsdCodeTagName)) {
