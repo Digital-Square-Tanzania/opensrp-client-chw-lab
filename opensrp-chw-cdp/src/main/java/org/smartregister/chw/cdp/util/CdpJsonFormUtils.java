@@ -89,8 +89,8 @@ public class CdpJsonFormUtils extends org.smartregister.util.JsonFormUtils {
         String entityId = getString(jsonForm, ENTITY_ID);
         String encounter_type = jsonForm.optString(Constants.JSON_FORM_EXTRA.ENCOUNTER_TYPE);
 
-        if (Constants.EVENT_TYPE.CDP_REGISTRATION.equals(encounter_type)) {
-            encounter_type = Constants.TABLES.CDP_REGISTER;
+        if (Constants.EVENT_TYPE.CDP_RESTOCK.equals(encounter_type)) {
+            encounter_type = Constants.TABLES.CDP_OUTLET_STOCK_COUNT;
         } else if (Constants.EVENT_TYPE.CDP_OUTLET_VISIT.equals(encounter_type)) {
             encounter_type = Constants.TABLES.CDP_OUTLET_VISIT;
         }
@@ -156,7 +156,7 @@ public class CdpJsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 JSONObject referralHealthFacilities = JsonFormUtils.getFieldJSONObject(fields, Constants.JSON_FORM_KEY.RECEIVING_ORDER_FACILITY);
 
                 JSONArray options = referralHealthFacilities.getJSONArray("options");
-                String healthFacilityWithMsdCodeTagName = "Facility_msd_code";
+                String healthFacilityWithMsdCodeTagName = "Facility";
                 for (Location location : locations) {
                     Set<LocationTag> locationTags = location.getLocationTags();
                     if (locationTags.iterator().next().getName().equalsIgnoreCase(healthFacilityWithMsdCodeTagName)) {

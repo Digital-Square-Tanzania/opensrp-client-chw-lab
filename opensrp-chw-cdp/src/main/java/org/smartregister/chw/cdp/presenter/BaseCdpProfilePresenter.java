@@ -11,10 +11,13 @@ import org.json.JSONObject;
 import org.smartregister.chw.cdp.contract.BaseCdpProfileContract;
 import org.smartregister.chw.cdp.dao.CdpDao;
 import org.smartregister.chw.cdp.domain.OutletObject;
+import org.smartregister.chw.cdp.pojo.CdpOutletEventClient;
+import org.smartregister.chw.cdp.pojo.RegisterParams;
 import org.smartregister.chw.cdp.util.Constants;
 import org.smartregister.util.JsonFormUtils;
 
 import java.lang.ref.WeakReference;
+import java.util.List;
 
 import timber.log.Timber;
 
@@ -71,6 +74,20 @@ public class BaseCdpProfilePresenter implements BaseCdpProfileContract.Presenter
         try {
             interactor.saveRegistration(jsonString, getView());
         } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    @Override
+    public void saveForm(String jsonString, RegisterParams registerParams) {
+        //Use this for registration form
+        try {
+            List<CdpOutletEventClient> cdpOutletEventClientList = model.processRegistration(jsonString);
+            if(cdpOutletEventClientList == null || cdpOutletEventClientList.isEmpty()){
+                return;
+            }
+            interactor.saveRegistration(cdpOutletEventClientList, jsonString, registerParams, this);
+        } catch (Exception e){
             Timber.e(e);
         }
     }

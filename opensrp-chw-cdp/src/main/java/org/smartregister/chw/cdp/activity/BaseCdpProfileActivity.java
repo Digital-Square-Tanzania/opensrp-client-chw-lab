@@ -49,6 +49,7 @@ public class BaseCdpProfileActivity extends BaseProfileActivity implements BaseC
     protected Button btnRecordFollowup;
     protected OutletObject outletObject;
     protected BaseCdpFloatingMenu baseCdpFloatingMenu;
+    protected String mBaseEntityId;
 
 
     public static void startProfileActivity(Activity activity, String baseEntityId) {
@@ -63,8 +64,8 @@ public class BaseCdpProfileActivity extends BaseProfileActivity implements BaseC
         Toolbar toolbar = findViewById(R.id.collapsing_toolbar);
         setSupportActionBar(toolbar);
 
-        String baseEntityId = getIntent().getStringExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID);
-        outletObject = CdpDao.getOutlet(baseEntityId);
+        mBaseEntityId = getIntent().getStringExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID);
+        outletObject = CdpDao.getOutlet(mBaseEntityId);
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -135,7 +136,7 @@ public class BaseCdpProfileActivity extends BaseProfileActivity implements BaseC
 
     @Override
     public void updateFollowupButton() {
-        if (CdpDao.getLastRecordedStockAtOutlet(outletObject.getBaseEntityId()) == 0) {
+        if (CdpDao.getLastRecordedStockAtOutlet(outletObject.getBaseEntityId()) == 0 || (outletObject != null && outletObject.isClosed())) {
             hideView();
         } else {
             btnRecordFollowup.setVisibility(View.VISIBLE);

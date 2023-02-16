@@ -12,6 +12,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
+
 import org.json.JSONObject;
 import org.smartregister.cdp.R;
 import org.smartregister.chw.cdp.contract.RestockingHistoryContract;
@@ -28,9 +31,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.widget.Toolbar;
-
 public class BaseRestockingHistoryActivity extends SecuredActivity implements View.OnClickListener, RestockingHistoryContract.View {
 
     protected OutletObject outletObject;
@@ -38,6 +38,7 @@ public class BaseRestockingHistoryActivity extends SecuredActivity implements Vi
     protected LinearLayout linearLayout;
     protected Toolbar toolbar;
     protected TextView tvTitle;
+    private Button restockingBtn;
 
     public static void startMe(Activity activity, OutletObject outletObject) {
         Intent intent = new Intent(activity, BaseRestockingHistoryActivity.class);
@@ -52,7 +53,7 @@ public class BaseRestockingHistoryActivity extends SecuredActivity implements Vi
 
         linearLayout = findViewById(R.id.linearLayoutRestockingHistory);
 
-        Button restockingBtn = findViewById(R.id.restock_button);
+        restockingBtn = findViewById(R.id.restock_button);
 
         restockingBtn.setOnClickListener(this);
 
@@ -116,10 +117,13 @@ public class BaseRestockingHistoryActivity extends SecuredActivity implements Vi
     @Override
     public void onDataReceived(List<Visit> visits) {
         if (visits.size() > 0) {
+            restockingBtn.setText(R.string.restock_button_label);
             for (Visit visit : visits) {
                 View view = renderView(visit);
                 getMainLayout().addView(view, 0);
             }
+        } else {
+            restockingBtn.setText(R.string.stock_button_label);
         }
 
     }

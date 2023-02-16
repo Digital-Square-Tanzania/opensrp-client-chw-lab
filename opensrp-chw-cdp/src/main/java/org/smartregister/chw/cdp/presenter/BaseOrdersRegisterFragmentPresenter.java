@@ -41,12 +41,12 @@ public class BaseOrdersRegisterFragmentPresenter implements BaseOrdersRegisterFr
 
     @Override
     public String getSentOrdersQuery() {
-        return Constants.TABLES.TASK + "." + DBConstants.KEY.STATUS + " = '" + Constants.OrderStatus.READY + "'";
+        return Constants.TABLES.TASK + "." + DBConstants.KEY.STATUS + " = '" + Constants.OrderStatus.READY + "'" + " OR " + Constants.TABLES.TASK + "." + DBConstants.KEY.STATUS + " = '" + Constants.OrderStatus.IN_TRANSIT + "'";
     }
 
     @Override
     public String getSuccessFulOrdersQuery() {
-        return Constants.TABLES.TASK + "." + DBConstants.KEY.STATUS + " = '" + Constants.OrderStatus.COMPLETE + "' OR " + Constants.TABLES.TASK + "." + DBConstants.KEY.STATUS + " = '" + Constants.OrderStatus.IN_TRANSIT + "'";
+        return Constants.TABLES.TASK + "." + DBConstants.KEY.STATUS + " = '" + Constants.OrderStatus.COMPLETE+"'";
     }
 
     @Override

@@ -11,11 +11,16 @@ import org.smartregister.cdp.R;
 import org.smartregister.chw.cdp.domain.Visit;
 import org.smartregister.chw.cdp.domain.VisitDetail;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import timber.log.Timber;
 
 public class RestockingUtils {
     public static void extractVisit(Visit visit, String[] params, List<Map<String, String>> visits_details) {
@@ -57,13 +62,31 @@ public class RestockingUtils {
             TextView tvRestockingDate = view.findViewById(R.id.tv_restocking_date_male);
             TextView tvQuantity = view.findViewById(R.id.tv_quantity_male);
             TextView tvIssuingOrganization = view.findViewById(R.id.tv_issuing_organization_male);
+            TextView tvIssuingOrganizationLabel = view.findViewById(R.id.tv_issuing_organization_male_label);
 
 
             tvType.setText(context.getString(context.getResources().getIdentifier(condomType, "string", context.getPackageName())));
             tvBrand.setText(context.getString(context.getResources().getIdentifier(getMapValue(vals, "male_condom_brand"), "string", context.getPackageName())));
-            tvRestockingDate.setText(getMapValue(vals, "condom_restock_date"));
+
+            String condomRestockDate = getMapValue(vals, "condom_restock_date");
+
+            SimpleDateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            SimpleDateFormat newFormat = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault());
+            Date date = null;
+            try {
+                date = originalFormat.parse(condomRestockDate);
+            } catch (ParseException e) {
+                Timber.e(e);
+            }
+
+            tvRestockingDate.setText(newFormat.format(date));
             tvQuantity.setText(getMapValue(vals, "restocked_male_condoms"));
-            tvIssuingOrganization.setText(getMapValue(vals, "issuing_organization").toUpperCase(Locale.ROOT));
+            if (StringUtils.isNotBlank(getMapValue(vals, "issuing_organization"))) {
+                tvIssuingOrganization.setText(getMapValue(vals, "issuing_organization").toUpperCase(Locale.ROOT));
+            } else {
+                tvIssuingOrganization.setVisibility(View.GONE);
+                tvIssuingOrganizationLabel.setVisibility(View.GONE);
+            }
 
         }
         if (condomType.equalsIgnoreCase("female_condom")) {
@@ -73,38 +96,40 @@ public class RestockingUtils {
             TextView tvRestockingDate = view.findViewById(R.id.tv_restocking_date_female);
             TextView tvQuantity = view.findViewById(R.id.tv_quantity_female);
             TextView tvIssuingOrganization = view.findViewById(R.id.tv_issuing_organization_female);
+            TextView tvIssuingOrganizationLabel = view.findViewById(R.id.tv_issuing_organization_female_label);
 
             tvType.setText(context.getString(context.getResources().getIdentifier(condomType, "string", context.getPackageName())));
             tvBrand.setText(context.getString(context.getResources().getIdentifier(getMapValue(vals, "female_condom_brand"), "string", context.getPackageName())));
             tvRestockingDate.setText(getMapValue(vals, "condom_restock_date"));
             tvQuantity.setText(getMapValue(vals, "restocked_female_condoms"));
-            tvIssuingOrganization.setText(getMapValue(vals, "issuing_organization").toUpperCase(Locale.ROOT));
+            if (StringUtils.isNotBlank(getMapValue(vals, "issuing_organization"))) {
+                tvIssuingOrganization.setText(getMapValue(vals, "issuing_organization").toUpperCase(Locale.ROOT));
+            } else {
+                tvIssuingOrganization.setVisibility(View.GONE);
+                tvIssuingOrganizationLabel.setVisibility(View.GONE);
+            }
         }
     }
 
     public static String getTexts(List<VisitDetail> visitDetails) {
-        if (visitDetails == null)
-            return "";
+        if (visitDetails == null) return "";
 
         List<String> texts = new ArrayList<>();
         for (VisitDetail vd : visitDetails) {
             String val = getText(vd);
-            if (StringUtils.isNotBlank(val))
-                texts.add(val.trim());
+            if (StringUtils.isNotBlank(val)) texts.add(val.trim());
         }
         return toCSV(texts);
     }
 
     @NotNull
     public static String getText(@Nullable List<VisitDetail> visitDetails) {
-        if (visitDetails == null)
-            return "";
+        if (visitDetails == null) return "";
 
         List<String> vals = new ArrayList<>();
         for (VisitDetail vd : visitDetails) {
             String val = getText(vd);
-            if (StringUtils.isNotBlank(val))
-                vals.add(val);
+            if (StringUtils.isNotBlank(val)) vals.add(val);
         }
 
         return toCSV(vals);
@@ -112,12 +137,10 @@ public class RestockingUtils {
 
     @NotNull
     public static String getText(@Nullable VisitDetail visitDetail) {
-        if (visitDetail == null)
-            return "";
+        if (visitDetail == null) return "";
 
         String val = visitDetail.getHumanReadable();
-        if (StringUtils.isNotBlank(val))
-            return val.trim();
+        if (StringUtils.isNotBlank(val)) return val.trim();
 
         return (StringUtils.isNotBlank(visitDetail.getDetails())) ? visitDetail.getDetails().trim() : "";
     }

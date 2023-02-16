@@ -15,7 +15,9 @@ public interface Constants {
 
     interface EVENT_TYPE {
         String CDP_OUTLET_REGISTRATION = "CDP Outlet Registration";
-        String CDP_REGISTRATION = "CDP Registration";
+        String UPDATE_CDP_OUTLET_REGISTRATION = "Update CDP Outlet Registration";
+        String DISABLE_CDP_OUTLET = "Disable CDP Outlet";
+        String ENABLE_CDP_OUTLET = "Enable CDP Outlet";
         String CDP_FOLLOW_UP_VISIT = "CDP Follow-up Visit";
         String CDP_OUTLET_VISIT = "CDP Outlet Visit";
         String CDP_RECEIVE_FROM_FACILITY = "CDP Receive From Facility";
@@ -30,6 +32,7 @@ public interface Constants {
 
     interface FORMS {
         String CDP_OUTLET_REGISTRATION = "cdp_outlet_registration";
+        String EDIT_CDP_OUTLET = "edit_cdp_outlet";
         String CDP_OUTLET_RESTOCK = "cdp_outlet_restock";
         String CD_OUTLET_VISIT = "cdp_outlet_visit";
         String CDP_CONDOM_ORDER = "cdp_condom_order";
@@ -42,7 +45,7 @@ public interface Constants {
 
     interface TABLES {
         String CDP_OUTLET = "ec_cdp_outlet";
-        String CDP_REGISTER = "ec_cdp_register";
+        String CDP_OUTLET_STOCK_COUNT = "ec_cdp_outlet_stock_count";
         String CDP_FOLLOW_UP = "ec_cdp_follow_up_visit";
         String CDP_STOCK_COUNT = "ec_cdp_stock_count";
         String CDP_STOCK_LOG = "ec_cdp_stock_log";
@@ -84,6 +87,8 @@ public interface Constants {
         String MALE_CONDOMS_OFFSET = "male_condoms_offset";
         String CONDOM_TYPE = "condom_type";
         String CONDOM_BRAND = "condom_brand";
+        String MALE_CONDOM_BRAND = "male_condom_brand";
+        String FEMALE_CONDOM_BRAND = "female_condom_brand";
         String CONDOMS_REQUESTED = "requested_condoms";
         String REQUEST_TYPE = "request_type";
         String QUANTITY_RES = "quantity_response";

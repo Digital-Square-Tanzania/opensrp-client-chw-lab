@@ -56,11 +56,14 @@
     <string name="menu_order_condoms">Outgoing Orders</string>
     <string name="menu_receive_cdp_from_organizations">Receive Condoms From Organizations</string>
     <string name="add_outlet">Add Outlet</string>
+    <string name="edit_outlet">Edit Outlet Information</string>
+    <string name="disable_outlet">Disable Outlet</string>
+    <string name="enable_outlet">Enable Outlet</string>
     <string name="order_receive">Outgoing Orders</string>
     <string name="order_send">Incoming Orders</string>
     <string name="all_outlets">All Outlets</string>
     <string name="successful">Successful</string>
-    <string name="sent_pending_orders">Pending</string>
+    <string name="sent_pending_orders">Pending/In-Transit</string>
     <string name="all_received_orders">All Received Orders</string>
     <string name="all_sent_orders">All Sent Orders</string>
     <string name="stock_on_hand">Stock On Hand: %d</string>
@@ -76,6 +79,8 @@
     <string name="quantity_label">Quantity (Pieces):</string>
     <string name="brand_label">Brand:</string>
     <string name="health_facility">Health Facility:</string>
+    <string name="requester_name">Requester:</string>
+    <string name="request_date_label">Request Date:</string>
     <string name="issuing_organization_label">Issuing Organization:</string>
     <string name="restocking_date_label">Restocking Date:</string>
     <string name="type_label_text">Type</string>
@@ -83,6 +88,7 @@
     <string name="brand_label_text">Brand</string>
     <string name="restocking_date_label_text">Restocking Date</string>
     <string name="restock_button_label">Restock</string>
+    <string name="stock_button_label">Stock</string>
     <string name="restocking_visit_history_label">Restocking Visit History</string>
     <string name="back_to_outlet">Return to %s Outlet</string>
     <string name="male_condom">Male Condom</string>

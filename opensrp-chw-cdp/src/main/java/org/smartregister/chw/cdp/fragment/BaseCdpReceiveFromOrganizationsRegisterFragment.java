@@ -10,6 +10,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+
 import org.json.JSONObject;
 import org.smartregister.cdp.R;
 import org.smartregister.chw.cdp.CdpLibrary;
@@ -29,13 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import androidx.annotation.LayoutRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-
-public class BaseCdpReceiveMsdRegisterFragment extends Fragment implements View.OnClickListener, RestockingHistoryContract.View {
+public class BaseCdpReceiveFromOrganizationsRegisterFragment extends Fragment implements View.OnClickListener, RestockingHistoryContract.View {
     protected View rootView;
     protected RestockingHistoryContract.Presenter presenter;
     protected CustomFontTextView titleView;
@@ -111,7 +111,7 @@ public class BaseCdpReceiveMsdRegisterFragment extends Fragment implements View.
     @Override
     public void onResume() {
         super.onResume();
-        initializePresenter();
+        presenter.initialize();
     }
 
     @Override
@@ -132,7 +132,7 @@ public class BaseCdpReceiveMsdRegisterFragment extends Fragment implements View.
 
     protected void processViewData(Visit visit, View view) {
         List<Map<String, String>> visits_details = new ArrayList<>();
-        String[] params = {"condom_restock_date", "condom_type", "male_condom_brand", "female_condom_brand", "restocked_female_condoms", "restocked_male_condoms","issuing_organization"};
+        String[] params = {"condom_restock_date", "condom_type", "male_condom_brand", "female_condom_brand", "restocked_female_condoms", "restocked_male_condoms", "issuing_organization"};
         RestockingUtils.extractVisit(visit, params, visits_details);
         RestockingUtils.processRestockingVisit(visits_details, view, requireActivity());
     }

@@ -16,7 +16,7 @@
         app:showAsAction="ifRoom"/>
 
     <item
-        android:id="@+id/action_receive_from_msd"
+        android:id="@+id/action_receive_from_organizations"
         android:enabled="true"
         android:icon="@drawable/ic_order"
         android:title="@string/receive_condoms"
