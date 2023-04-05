@@ -49,6 +49,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 import timber.log.Timber;
 
@@ -132,6 +133,9 @@ public class CdpUtil {
     public static void saveFormEvent(final String jsonString) throws Exception {
         AllSharedPreferences allSharedPreferences = CdpLibrary.getInstance().context().allSharedPreferences();
         Event baseEvent = CdpJsonFormUtils.processJsonForm(allSharedPreferences, jsonString);
+        if (baseEvent.getBaseEntityId().isEmpty()) {
+            baseEvent.setBaseEntityId(UUID.randomUUID().toString());
+        }
         CdpUtil.processEvent(allSharedPreferences, baseEvent);
     }
 
