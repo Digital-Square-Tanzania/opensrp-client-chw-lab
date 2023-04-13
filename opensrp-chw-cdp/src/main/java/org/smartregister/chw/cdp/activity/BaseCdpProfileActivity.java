@@ -45,6 +45,7 @@ public class BaseCdpProfileActivity extends BaseProfileActivity implements BaseC
     protected TextView tvLastRecordedStock;
     protected RelativeLayout rlLastRecordedStock;
     protected TextView tvLastVisitSub;
+    protected TextView tvLastVisitTitle;
     protected RelativeLayout rlVisitHistory;
     protected Button btnRecordFollowup;
     protected OutletObject outletObject;
@@ -104,6 +105,7 @@ public class BaseCdpProfileActivity extends BaseProfileActivity implements BaseC
         tvLastRecordedStock = findViewById(R.id.tv_lastRecordedStock);
         rlLastRecordedStock = findViewById(R.id.rlLastRecordedStock);
         tvLastVisitSub = findViewById(R.id.tv_visitHistory_sub);
+        tvLastVisitTitle = findViewById(R.id.tv_visitHistory_title);
         rlVisitHistory = findViewById(R.id.rlVisitHistory);
         btnRecordFollowup = findViewById(R.id.btn_record_visit);
 
