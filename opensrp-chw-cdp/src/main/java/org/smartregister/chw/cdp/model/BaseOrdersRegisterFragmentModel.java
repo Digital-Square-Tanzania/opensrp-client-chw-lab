@@ -50,23 +50,7 @@ public class BaseOrdersRegisterFragmentModel implements BaseOrdersRegisterFragme
 
     @Override
     public JSONObject getDistributionFormAsJson(String formName) throws Exception {
-        if (formName.equalsIgnoreCase(Constants.FORMS.CDP_CONDOM_DISTRIBUTION_WITHIN)) {
-            JSONObject form = CdpJsonFormUtils.getFormAsJson(formName);
-            String userLocationId = Utils.getAllSharedPreferences().fetchUserLocalityId(Utils.getAllSharedPreferences().fetchRegisteredANM());
-            JSONObject global = form.getJSONObject("global");
-            if (global != null) {
-                global.put("male_condom_count", getCurrentMaleCondomCount(userLocationId));
-                global.put("female_condom_count", getCurrentFemaleCondomCount(userLocationId));
-
-                List<String> condomBrands = CdpStockingDao.getCondomBrands();
-                for (String condomBrand : condomBrands) {
-                    global.put("male_condom_" + condomBrand + "_count", getCurrentCondomCountByBrand(condomBrand, CdpStockingDao.CondomStockLog.CondomType.MALE));
-                    global.put("female_condom_" + condomBrand + "_count", getCurrentCondomCountByBrand(condomBrand, CdpStockingDao.CondomStockLog.CondomType.FEMALE));
-                }
-            }
-            return form;
-        }
-        return CdpJsonFormUtils.getFormAsJson(formName);
+        return CdpJsonFormUtils.getFormAsJson(formName,null, null);
     }
 
     @NotNull

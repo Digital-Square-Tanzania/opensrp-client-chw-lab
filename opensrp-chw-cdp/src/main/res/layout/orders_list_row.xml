@@ -76,6 +76,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:textColor="@color/black"
+        app:layout_constrainedWidth="true"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toEndOf="@id/health_facility_label"
         app:layout_constraintTop_toBottomOf="@id/condom_brand"
@@ -91,7 +92,7 @@
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/health_facility_label" />
+        app:layout_constraintTop_toBottomOf="@id/health_facility" />
 
     <TextView
         android:id="@+id/condom_quantity"

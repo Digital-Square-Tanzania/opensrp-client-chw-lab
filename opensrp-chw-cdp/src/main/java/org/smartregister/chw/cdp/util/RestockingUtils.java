@@ -55,6 +55,9 @@ public class RestockingUtils {
     }
 
     private static void populateData(View view, Map<String, String> vals, String condomType, Activity context) {
+        SimpleDateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        SimpleDateFormat newFormat = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault());
+
         if (condomType.equalsIgnoreCase("male_condom")) {
             view.findViewById(R.id.male_condoms_details).setVisibility(View.VISIBLE);
             TextView tvType = view.findViewById(R.id.tv_type_male);
@@ -70,8 +73,6 @@ public class RestockingUtils {
 
             String condomRestockDate = getMapValue(vals, "condom_restock_date");
 
-            SimpleDateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-            SimpleDateFormat newFormat = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault());
             Date date = null;
             try {
                 date = originalFormat.parse(condomRestockDate);
@@ -100,7 +101,16 @@ public class RestockingUtils {
 
             tvType.setText(context.getString(context.getResources().getIdentifier(condomType, "string", context.getPackageName())));
             tvBrand.setText(context.getString(context.getResources().getIdentifier(getMapValue(vals, "female_condom_brand"), "string", context.getPackageName())));
-            tvRestockingDate.setText(getMapValue(vals, "condom_restock_date"));
+
+            String condomRestockDate = getMapValue(vals, "condom_restock_date");
+            Date date = null;
+            try {
+                date = originalFormat.parse(condomRestockDate);
+            } catch (ParseException e) {
+                Timber.e(e);
+            }
+            tvRestockingDate.setText(newFormat.format(date));
+
             tvQuantity.setText(getMapValue(vals, "restocked_female_condoms"));
             if (StringUtils.isNotBlank(getMapValue(vals, "issuing_organization"))) {
                 tvIssuingOrganization.setText(getMapValue(vals, "issuing_organization").toUpperCase(Locale.ROOT));

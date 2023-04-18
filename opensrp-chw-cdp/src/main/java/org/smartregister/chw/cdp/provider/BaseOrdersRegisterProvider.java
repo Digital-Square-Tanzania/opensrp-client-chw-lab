@@ -66,7 +66,7 @@ public class BaseOrdersRegisterProvider implements RecyclerViewProvider<OrdersVi
             String orderStatus = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.STATUS, false);
 
             if (healthFacilityId != null) {
-                Location location = locationRepository.getLocationById(healthFacilityId);
+                Location location = locationRepository.getLocationById(healthFacilityId.toLowerCase(Locale.ROOT));
                 String healthFacilityName = location.getProperties().getName();
                 viewHolder.health_facility.setText(healthFacilityName);
             }

@@ -43,7 +43,7 @@ public class BaseReceivedOrdersRegisterProvider extends BaseOrdersRegisterProvid
             String condomQuantity = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.QUANTITY_REQ, false);
             String orderStatus = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.STATUS, false);
 
-            Location location = locationRepository.getLocationById(healthFacilityId);
+            Location location = locationRepository.getLocationById(healthFacilityId.toLowerCase(Locale.ROOT));
 
             String healthFacilityName = location.getProperties().getName();
             viewHolder.health_facility_label.setText(R.string.requester_name);
