@@ -1,0 +1,659 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/collapsing_toolbar_appbarlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/light_gray">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/collapsing_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/CDPTheme.AppBarOverlay.Light"
+                    app:contentInsetEnd="0dp"
+                    app:contentInsetLeft="0dp"
+                    app:contentInsetRight="0dp"
+                    app:contentInsetStart="0dp"
+                    app:contentInsetStartWithNavigation="0dp"
+                    app:layout_collapseMode="pin">
+
+                    <org.smartregister.view.customcontrols.CustomFontTextView
+                        android:id="@+id/toolbar_title"
+                        style="@style/CustomFontTextViewStyle.ClientList"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical|start"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="0dp"
+                        android:text="@string/return_to_all_sample_test_requests"
+                        android:textColor="@color/customAppThemeBlue"
+                        android:textSize="17sp" />
+                </androidx.appcompat.widget.Toolbar>
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/headerTestResultDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="8dp"
+                    android:text="HVL Test Sample Details"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:background="#CCCCCC" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="none"
+                        android:fontFamily="@font/roboto_medium"
+                        android:scrollHorizontally="false"
+                        android:text="SampleId"
+                        android:textColor="@color/primary"
+                        android:textSize="@dimen/register_member_village_size"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/register_dot_separator_margin"
+                        android:text=":"
+                        android:textColor="@android:color/black" />
+
+                    <TextView
+                        android:id="@+id/sample_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:ellipsize="none"
+                        android:fontFamily="@font/roboto_medium"
+                        android:scrollHorizontally="false"
+                        android:text="1223-31-13"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/register_member_village_size" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="none"
+                        android:fontFamily="@font/roboto_medium"
+                        android:scrollHorizontally="false"
+                        android:text="PatientId"
+                        android:textColor="@color/primary"
+                        android:textSize="@dimen/register_member_village_size"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/register_dot_separator_margin"
+                        android:text=":"
+                        android:textColor="@android:color/black" />
+
+                    <TextView
+                        android:id="@+id/patient_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:ellipsize="none"
+                        android:fontFamily="@font/roboto_medium"
+                        android:scrollHorizontally="false"
+                        android:text="12-12-3011-133424"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/register_member_village_size" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="none"
+                        android:fontFamily="@font/roboto_medium"
+                        android:scrollHorizontally="false"
+                        android:text="Sample Request Date"
+                        android:textColor="@color/primary"
+                        android:textSize="@dimen/register_member_village_size"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/register_dot_separator_margin"
+                        android:text=":"
+                        android:textColor="@android:color/black" />
+
+                    <TextView
+                        android:id="@+id/sample_request_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:ellipsize="none"
+                        android:fontFamily="@font/roboto_medium"
+                        android:scrollHorizontally="false"
+                        android:text="12-12-2024"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/register_member_village_size" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="none"
+                        android:fontFamily="@font/roboto_medium"
+                        android:scrollHorizontally="false"
+                        android:text="Sample Taken Date"
+                        android:textColor="@color/primary"
+                        android:textSize="@dimen/register_member_village_size"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/register_dot_separator_margin"
+                        android:text=":"
+                        android:textColor="@android:color/black" />
+
+                    <TextView
+                        android:id="@+id/sample_taken_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:ellipsize="none"
+                        android:fontFamily="@font/roboto_medium"
+                        android:scrollHorizontally="false"
+                        android:text="12-12-2024"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/register_member_village_size" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="none"
+                        android:fontFamily="@font/roboto_medium"
+                        android:scrollHorizontally="false"
+                        android:text="Manifest ID"
+                        android:textColor="@color/primary"
+                        android:textSize="@dimen/register_member_village_size"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/register_dot_separator_margin"
+                        android:text=":"
+                        android:textColor="@android:color/black" />
+
+                    <TextView
+                        android:id="@+id/manifest_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:ellipsize="none"
+                        android:fontFamily="@font/roboto_medium"
+                        android:scrollHorizontally="false"
+                        android:text="12-32-1232-233324"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/register_member_village_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/test_results_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+                    <TextView
+                        android:id="@+id/sampleTestResultDetails"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/parent"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginTop="32dp"
+                        android:text="HVL Test Sample Details"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="8dp"
+                        android:background="#CCCCCC" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="none"
+                            android:fontFamily="@font/roboto_medium"
+                            android:scrollHorizontally="false"
+                            android:text="Tested By"
+                            android:textColor="@color/primary"
+                            android:textSize="@dimen/register_member_village_size"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/register_dot_separator_margin"
+                            android:text=":"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/tested_by"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:ellipsize="none"
+                            android:fontFamily="@font/roboto_medium"
+                            android:scrollHorizontally="false"
+                            android:text="Derick Otieno"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/register_member_village_size" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="none"
+                            android:fontFamily="@font/roboto_medium"
+                            android:scrollHorizontally="false"
+                            android:text="Authorized by"
+                            android:textColor="@color/primary"
+                            android:textSize="@dimen/register_member_village_size"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/register_dot_separator_margin"
+                            android:text=":"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/authorized_by"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:ellipsize="none"
+                            android:fontFamily="@font/roboto_medium"
+                            android:scrollHorizontally="false"
+                            android:text="Mzungu Daniel"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/register_member_village_size" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="none"
+                            android:fontFamily="@font/roboto_medium"
+                            android:scrollHorizontally="false"
+                            android:text="Tested Date"
+                            android:textColor="@color/primary"
+                            android:textSize="@dimen/register_member_village_size"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/register_dot_separator_margin"
+                            android:text=":"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/tested_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:ellipsize="none"
+                            android:fontFamily="@font/roboto_medium"
+                            android:scrollHorizontally="false"
+                            android:text="2023 - 12 - 22"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/register_member_village_size" />
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="none"
+                            android:fontFamily="@font/roboto_medium"
+                            android:scrollHorizontally="false"
+                            android:text="Authorized Date"
+                            android:textColor="@color/primary"
+                            android:textSize="@dimen/register_member_village_size"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/register_dot_separator_margin"
+                            android:text=":"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/authorized_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:ellipsize="none"
+                            android:fontFamily="@font/roboto_medium"
+                            android:scrollHorizontally="false"
+                            android:text="2023 - 12 - 22"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/register_member_village_size" />
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="none"
+                            android:fontFamily="@font/roboto_medium"
+                            android:scrollHorizontally="false"
+                            android:text="Testing Location"
+                            android:textColor="@color/primary"
+                            android:textSize="@dimen/register_member_village_size"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/register_dot_separator_margin"
+                            android:text=":"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/testing_location"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:ellipsize="none"
+                            android:fontFamily="@font/roboto_medium"
+                            android:scrollHorizontally="false"
+                            android:text="Temeke Hosp"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/register_member_village_size" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="none"
+                            android:fontFamily="@font/roboto_medium"
+                            android:scrollHorizontally="false"
+                            android:text="Test Results"
+                            android:textColor="@color/primary"
+                            android:textSize="@dimen/register_member_village_size"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/register_dot_separator_margin"
+                            android:text=":"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/test_results"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:ellipsize="none"
+                            android:fontFamily="@font/roboto_medium"
+                            android:scrollHorizontally="false"
+                            android:text="1001 copies/ml"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/register_member_village_size" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="none"
+                            android:fontFamily="@font/roboto_medium"
+                            android:scrollHorizontally="false"
+                            android:text="Test Name"
+                            android:textColor="@color/primary"
+                            android:textSize="@dimen/register_member_village_size"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/register_dot_separator_margin"
+                            android:text=":"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/test_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:ellipsize="none"
+                            android:fontFamily="@font/roboto_medium"
+                            android:scrollHorizontally="false"
+                            android:text="HIVVL"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/register_member_village_size" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/provision_of_results_to_clients"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/parent"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginTop="32dp"
+                        android:text="Provision of Results to Clients"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="8dp"
+                        android:background="#CCCCCC" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="none"
+                            android:fontFamily="@font/roboto_medium"
+                            android:scrollHorizontally="false"
+                            android:text="Date results provided to Client"
+                            android:textColor="@color/primary"
+                            android:textSize="@dimen/register_member_village_size"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/register_dot_separator_margin"
+                            android:text=":"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/date_results_provided_to_client"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:ellipsize="none"
+                            android:fontFamily="@font/roboto_medium"
+                            android:scrollHorizontally="false"
+                            android:text="2023-01-01"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/register_member_village_size" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="none"
+                            android:fontFamily="@font/roboto_medium"
+                            android:scrollHorizontally="false"
+                            android:text="Time Results provided to Client"
+                            android:textColor="@color/primary"
+                            android:textSize="@dimen/register_member_village_size"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/register_dot_separator_margin"
+                            android:text=":"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/time_results_provided_to_client"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:ellipsize="none"
+                            android:fontFamily="@font/roboto_medium"
+                            android:scrollHorizontally="false"
+                            android:text="20:89"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/register_member_village_size" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <include
+                android:id="@+id/record_sample_processing"
+                layout="@layout/view_record_test_sample_processing" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

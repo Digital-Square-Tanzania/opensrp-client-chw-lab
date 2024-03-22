@@ -1,1 +1,1 @@
-include ':sample', ':opensrp-chw-cdp'
+include ':sample', ':opensrp-chw-lab'
