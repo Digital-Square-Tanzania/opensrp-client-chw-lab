@@ -10,33 +10,68 @@ import java.util.List;
 public class LabDao extends AbstractDao {
     private static final String manifestsTable = Constants.TABLES.LAB_MANIFESTS;
 
+    public static void saveDestinationHub(String destinationHubName, String destinationHubUuid) {
+        String sql = "INSERT INTO " + Constants.TABLES.LAB_MANIFEST_SETTINGS +
+                "    (base_entity_id, destination_hub_name, destination_hub_uuid) " +
+                "         VALUES ('" + destinationHubUuid + "','" + destinationHubName + "', '" + destinationHubUuid + "')" +
+                "       ON CONFLICT (id) DO UPDATE" +
+                "       SET destination_hub_name = '" + destinationHubName + "'," +
+                "           destination_hub_uuid = '" + destinationHubUuid + "'" +
+                "       ";
+        updateDB(sql);
+    }
+
+    public static String getDestinationHubName(){
+        String sql = "SELECT destination_hub_name FROM " + Constants.TABLES.LAB_MANIFEST_SETTINGS + " p ";
+
+        DataMap<String> dataMap = cursor -> getCursorValue(cursor, "destination_hub_name");
+        List<String> res = readData(sql, dataMap);
+
+        if (res != null && res.size() > 0 && res.get(0) != null) {
+            return res.get(0);
+        }
+        return "";
+    }
+
+    public static String getDestinationHubUuid(){
+        String sql = "SELECT destination_hub_uuid FROM " + Constants.TABLES.LAB_MANIFEST_SETTINGS + " p ";
+
+        DataMap<String> dataMap = cursor -> getCursorValue(cursor, "destination_hub_uuid");
+        List<String> res = readData(sql, dataMap);
+
+        if (res != null && res.size() > 0 && res.get(0) != null) {
+            return res.get(0);
+        }
+        return "";
+    }
+
     public static void insertManifest(String batchNumber,
-                                       String manifestType,
-                                       String destinationHub,
-                                       String samplesList) {
+                                      String manifestType,
+                                      String destinationHub,
+                                      String samplesList) {
 
 
         String sql = "INSERT INTO " + Constants.TABLES.LAB_MANIFESTS +
-                "    (base_entity_id, batch_number, manifest_type, destination_hub, samples_list) " +
+                "    (base_entity_id, batch_number, manifest_type, destination_hub_name, samples_list) " +
                 "         VALUES ('" + batchNumber + "', '" + batchNumber + "', '" + manifestType + "', '" + destinationHub + "', '" + samplesList + "')" +
                 "       ON CONFLICT (id) DO UPDATE" +
                 "       SET batch_number = '" + batchNumber + "'," +
                 "           manifest_type = '" + manifestType + "', " +
-                "           destination_hub = '" + destinationHub + "', " +
+                "           destination_hub_name = '" + destinationHub + "', " +
                 "           samples_list = '" + samplesList + "'" +
                 "       ";
         updateDB(sql);
     }
 
     public static void updateManifest(String batchNumber,
-                                       String dispatchDate,
-                                       String dispatchTime) {
+                                      String dispatchDate,
+                                      String dispatchTime) {
 
 
         String sql = "UPDATE" + Constants.TABLES.LAB_MANIFESTS +
                 "       SET dispatch_date = '" + dispatchDate + "'," +
                 "           dispatch_time = '" + dispatchTime + "'" +
-                "       WHERE batch_number = '"+batchNumber+"'";
+                "       WHERE batch_number = '" + batchNumber + "'";
         updateDB(sql);
     }
 

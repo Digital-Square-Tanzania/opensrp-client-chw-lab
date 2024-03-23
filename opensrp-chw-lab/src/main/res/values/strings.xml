@@ -127,6 +127,8 @@
     <string name="patient_id">Patient ID</string>
     <string name="sample_id">Sample ID</string>
     <string name="create_manifest">Create Manifest</string>
+    <string name="set_destination_hub_lab">Please configure Destination Hub/Lab</string>
+    <string name="no_test_samples">There are no test samples</string>
 
 
 </resources>

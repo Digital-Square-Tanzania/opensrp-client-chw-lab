@@ -69,6 +69,10 @@ public class CreateManifestActivity extends AppCompatActivity {
 
         baseEvent.addObs(new Obs().withFormSubmissionField(Constants.JSON_FORM_KEY.MANIFEST_TYPE).withValue(manifestType).withFieldCode(Constants.JSON_FORM_KEY.MANIFEST_TYPE).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<>()));
 
+        baseEvent.addObs(new Obs().withFormSubmissionField(Constants.JSON_FORM_KEY.DESTINATION_HUB_NAME).withValue(LabDao.getDestinationHubName()).withFieldCode(Constants.JSON_FORM_KEY.DESTINATION_HUB_NAME).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<>()));
+
+        baseEvent.addObs(new Obs().withFormSubmissionField(Constants.JSON_FORM_KEY.DESTINATION_HUB_UUID).withValue(LabDao.getDestinationHubUuid()).withFieldCode(Constants.JSON_FORM_KEY.DESTINATION_HUB_UUID).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<>()));
+
         baseEvent.addObs(new Obs().withFormSubmissionField(Constants.JSON_FORM_KEY.SAMPLES_LIST).withValue(selectedSamples.toString()).withFieldCode(Constants.JSON_FORM_KEY.SAMPLES_LIST).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<>()));
 
         persistEvent(baseEvent);

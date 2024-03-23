@@ -55,7 +55,7 @@ public class BaseManifestsRegisterProvider implements RecyclerViewProvider<Manif
         try {
             String batchNumber = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BATCH_NUMBER, true);
             String manifestType = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.MANIFEST_TYPE, true);
-            String destinationHub = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DESTINATION_HUB, true);
+            String destinationHub = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DESTINATION_HUB_NAME, true);
             String manifestStatus = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.MANIFEST_STATUS, true);
 
 

@@ -20,6 +20,8 @@ public interface Constants {
 
         String LAB_MANIFEST_DISPATCH = "LAB Manifest Dispatch";
 
+        String LAB_SET_MANIFEST_SETTINGS = "Set Manifest Settings";
+
         String LAB_TEST_REQUEST_PREPARATION = "LAB Test Request Preparation";
     }
 
@@ -29,6 +31,8 @@ public interface Constants {
         String LAB_HEID_SAMPLE_COLLECTION = "lab_heid_sample_collection";
 
         String LAB_HVL_PROCESSING = "lab_hvl_processing";
+
+        String LAB_MANIFEST_SETTINGS = "lab_manifest_settings";
 
         String CDP_OUTLET_REGISTRATION = "cdp_outlet_registration";
         String EDIT_CDP_OUTLET = "edit_cdp_outlet";
@@ -46,6 +50,8 @@ public interface Constants {
         String LAB_TEST_REQUESTS = "ec_lab_requests";
 
         String LAB_MANIFESTS = "ec_lab_manifests";
+
+        String LAB_MANIFEST_SETTINGS = "ec_lab_settings";
     }
 
     interface ACTIVITY_PAYLOAD {
@@ -81,13 +87,15 @@ public interface Constants {
 
         String MANIFEST_TYPE = "manifest_type";
 
-        String DESTINATION_HUB = "destination_hub";
-
         String SAMPLES_LIST = "samples_list";
 
         String DISPATCH_DATE = "dispatch_date";
 
         String DISPATCH_TIME = "dispatch_time";
+
+        String DESTINATION_HUB_NAME = "destination_hub_name";
+
+        String DESTINATION_HUB_UUID = "destination_hub_uuid";
     }
 
 }

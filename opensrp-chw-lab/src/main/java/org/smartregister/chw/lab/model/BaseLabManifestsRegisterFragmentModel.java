@@ -57,7 +57,7 @@ public class BaseLabManifestsRegisterFragmentModel implements BaseLabRegisterFra
         columnList.add(Constants.TABLES.LAB_MANIFESTS + "." + DBConstants.KEY.RELATIONAL_ID);
         columnList.add(Constants.TABLES.LAB_MANIFESTS + "." + DBConstants.KEY.BATCH_NUMBER);
         columnList.add(Constants.TABLES.LAB_MANIFESTS + "." + DBConstants.KEY.MANIFEST_TYPE);
-        columnList.add(Constants.TABLES.LAB_MANIFESTS + "." + DBConstants.KEY.DESTINATION_HUB);
+        columnList.add(Constants.TABLES.LAB_MANIFESTS + "." + DBConstants.KEY.DESTINATION_HUB_NAME);
         columnList.add(Constants.TABLES.LAB_MANIFESTS + "." + DBConstants.KEY.DISPATCH_DATE);
         columnList.add(Constants.TABLES.LAB_MANIFESTS + "." + DBConstants.KEY.DISPATCH_TIME);
         columnList.add(Constants.TABLES.LAB_MANIFESTS + "." + DBConstants.KEY.DISPATCHER_NAME);

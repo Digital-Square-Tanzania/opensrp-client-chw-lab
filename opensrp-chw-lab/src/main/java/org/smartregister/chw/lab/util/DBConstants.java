@@ -18,7 +18,7 @@ public class DBConstants {
         public static final String SAMPLE_TYPE = "sample_type";
         public static final String BATCH_NUMBER = "batch_number";
         public static final String MANIFEST_TYPE = "manifest_type";
-        public static final String DESTINATION_HUB = "destination_hub";
+        public static final String DESTINATION_HUB_NAME = "destination_hub_name";
         public static final String DISPATCH_DATE = "dispatch_date";
         public static final String DISPATCH_TIME = "dispatch_time";
         public static final String DISPATCHER_NAME = "dispatcher_name";
