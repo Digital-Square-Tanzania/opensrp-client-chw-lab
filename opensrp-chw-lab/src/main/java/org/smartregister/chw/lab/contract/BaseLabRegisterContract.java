@@ -10,7 +10,7 @@ import org.smartregister.view.contract.BaseRegisterContract;
 
 import java.util.List;
 
-public interface BaseCdpRegisterContract {
+public interface BaseLabRegisterContract {
 
     interface View extends BaseRegisterContract.View {
         Presenter presenter();
@@ -44,8 +44,8 @@ public interface BaseCdpRegisterContract {
 
         void saveRegistration(String jsonString, final InteractorCallBack callBack);
         void saveRegistration(final List<CdpOutletEventClient> cdpOutletEventClientList, final String jsonString,
-                              final RegisterParams registerParams, final BaseCdpRegisterContract.InteractorCallBack callBack);
-        void getNextUniqueId(final Triple<String, String, String> triple, final BaseCdpRegisterContract.InteractorCallBack callBack);
+                              final RegisterParams registerParams, final BaseLabRegisterContract.InteractorCallBack callBack);
+        void getNextUniqueId(final Triple<String, String, String> triple, final BaseLabRegisterContract.InteractorCallBack callBack);
 
 
     }

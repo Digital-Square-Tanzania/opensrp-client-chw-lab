@@ -18,7 +18,7 @@ import org.smartregister.Context;
 import org.smartregister.chw.lab.fragment.BaseLabManifestsRegisterFragment;
 import org.smartregister.lab.R;
 import org.smartregister.chw.lab.LabLibrary;
-import org.smartregister.chw.lab.contract.BaseCdpRegisterContract;
+import org.smartregister.chw.lab.contract.BaseLabRegisterContract;
 import org.smartregister.chw.lab.fragment.BaseLabRequestsRegisterFragment;
 import org.smartregister.chw.lab.interactor.BaseLabRegisterInteractor;
 import org.smartregister.chw.lab.listener.BaseLabBottomNavigationListener;
@@ -41,7 +41,7 @@ import java.util.List;
 
 import timber.log.Timber;
 
-public class BaseLabRegisterActivity extends BaseRegisterActivity implements BaseCdpRegisterContract.View {
+public class BaseLabRegisterActivity extends BaseRegisterActivity implements BaseLabRegisterContract.View {
 
     protected String BASE_ENTITY_ID;
     protected String FAMILY_BASE_ENTITY_ID;
@@ -190,8 +190,8 @@ public class BaseLabRegisterActivity extends BaseRegisterActivity implements Bas
     }
 
     @Override
-    public BaseCdpRegisterContract.Presenter presenter() {
-        return (BaseCdpRegisterContract.Presenter) presenter;
+    public BaseLabRegisterContract.Presenter presenter() {
+        return (BaseLabRegisterContract.Presenter) presenter;
     }
 
     @Override

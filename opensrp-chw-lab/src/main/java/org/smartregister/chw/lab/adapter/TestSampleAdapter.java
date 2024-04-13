@@ -8,23 +8,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
-import org.smartregister.chw.lab.domain.TestSampleItem;
+import org.smartregister.chw.lab.domain.TestSample;
 import org.smartregister.lab.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class TestSampleAdapter extends ArrayAdapter<TestSampleItem> {
+public class TestSampleAdapter extends ArrayAdapter<TestSample> {
 
-    private final List<TestSampleItem> dataSet;
+    private final List<TestSample> dataSet;
     Context mContext;
 
-    public TestSampleAdapter(List<TestSampleItem> data, Context context) {
+    public TestSampleAdapter(List<TestSample> data, Context context) {
         super(context, R.layout.view_test_sample_item, data);
         this.dataSet = data;
         this.mContext = context;
@@ -34,7 +32,7 @@ public class TestSampleAdapter extends ArrayAdapter<TestSampleItem> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
-        TestSampleItem dataModel = getItem(position);
+        TestSample dataModel = getItem(position);
 
         // Check if an existing view is being reused, otherwise inflate the view
         ViewHolder viewHolder;
@@ -55,8 +53,9 @@ public class TestSampleAdapter extends ArrayAdapter<TestSampleItem> {
         viewHolder.testSampleId.setText(dataModel.getSampleId());
         viewHolder.patientId.setText(dataModel.getPatientId());
 
-        viewHolder.checkbox.setOnCheckedChangeListener((compoundButton, b) -> {
-            if (b) {
+        viewHolder.checkbox.setChecked(selectedSamples.contains(dataModel.getSampleId()));
+        viewHolder.checkbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
                 selectedSamples.add(dataModel.getSampleId());
             } else {
                 selectedSamples.remove(dataModel.getSampleId());
@@ -69,7 +68,7 @@ public class TestSampleAdapter extends ArrayAdapter<TestSampleItem> {
 
     @Nullable
     @Override
-    public TestSampleItem getItem(int position) {
+    public TestSample getItem(int position) {
         return dataSet.get(position);
     }
 
@@ -78,5 +77,20 @@ public class TestSampleAdapter extends ArrayAdapter<TestSampleItem> {
         TextView patientId;
         TextView testSampleId;
         CheckBox checkbox;
+    }
+
+    // Select all samples
+    public void selectAll() {
+        selectedSamples.clear();
+        for (TestSample sample : dataSet) {
+            selectedSamples.add(sample.getSampleId());
+        }
+        notifyDataSetChanged();
+    }
+
+    // Deselect all samples
+    public void deselectAll() {
+        selectedSamples.clear();
+        notifyDataSetChanged();
     }
 }

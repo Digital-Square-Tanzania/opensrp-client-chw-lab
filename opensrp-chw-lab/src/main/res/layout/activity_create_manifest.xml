@@ -46,23 +46,38 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@android:color/white" />
         </RelativeLayout>
-
-        <org.smartregister.view.customcontrols.CustomFontTextView
-            android:id="@+id/customFontTextViewName"
-            style="@style/CustomFontTextViewStyle.ClientList.Light"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/home_visit_left_margin"
-            android:layout_marginLeft="@dimen/home_visit_left_margin"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="@dimen/home_visit_right_margin"
-            android:layout_marginRight="@dimen/home_visit_right_margin"
-            android:layout_marginBottom="@dimen/dialog_toolbar_close_margin"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/home_visit_title_text_size" />
+            android:layout_height="wrap_content">
+            <org.smartregister.view.customcontrols.CustomFontTextView
+                android:id="@+id/customFontTextViewName"
+                style="@style/CustomFontTextViewStyle.ClientList.Light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/home_visit_left_margin"
+                android:layout_marginLeft="@dimen/home_visit_left_margin"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="@dimen/home_visit_right_margin"
+                android:layout_marginRight="@dimen/home_visit_right_margin"
+                android:layout_marginBottom="@dimen/dialog_toolbar_close_margin"
+                android:gravity="center_vertical"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/home_visit_title_text_size" />
+
+            <ImageView
+                android:id="@+id/select_all"
+                style="@style/CustomFontTextViewStyle.ClientList.Light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="32dp"
+                android:layout_marginEnd="32dp"
+                android:gravity="center_vertical"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@android:color/white"
+                app:srcCompat="@drawable/select_all" />
+        </RelativeLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 

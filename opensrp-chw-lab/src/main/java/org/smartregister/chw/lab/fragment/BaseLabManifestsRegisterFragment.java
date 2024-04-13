@@ -27,7 +27,6 @@ import java.util.Set;
 
 public class BaseLabManifestsRegisterFragment extends BaseRegisterFragment implements BaseLabRegisterFragmentContract.View {
     public static final String CLICK_VIEW_NORMAL = "click_view_normal";
-    public static final String FOLLOW_UP_VISIT = "follow_up_visit";
     protected Toolbar toolbar;
     protected CustomFontTextView titleView;
 
@@ -39,7 +38,7 @@ public class BaseLabManifestsRegisterFragment extends BaseRegisterFragment imple
 
     @Override
     public void initializeAdapter(Set<View> visibleColumns) {
-        BaseManifestsRegisterProvider baseManifestsRegisterProvider = new BaseManifestsRegisterProvider(getActivity(), paginationViewHandler, registerActionHandler);
+        BaseManifestsRegisterProvider baseManifestsRegisterProvider = new BaseManifestsRegisterProvider(getActivity(), registerActionHandler, paginationViewHandler);
         clientAdapter = new RecyclerViewPaginatedAdapter(null, baseManifestsRegisterProvider, context().commonrepository(this.tablename));
         clientAdapter.setCurrentlimit(20);
         clientsView.setAdapter(clientAdapter);
@@ -149,18 +148,12 @@ public class BaseLabManifestsRegisterFragment extends BaseRegisterFragment imple
 
         CommonPersonObjectClient client = (CommonPersonObjectClient) view.getTag();
         if (view.getTag(R.id.VIEW_ID) == CLICK_VIEW_NORMAL) {
-            String manifestId = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.MANIFEST_ID, true);
-            openProfile(client.getCaseId(), manifestId);
-        } else if (view.getTag(R.id.VIEW_ID) == FOLLOW_UP_VISIT) {
-            openFollowUpVisit(client.getCaseId());
+            String batchNumber = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.BATCH_NUMBER, true);
+            openProfile(batchNumber);
         }
     }
 
-    protected void openProfile(String baseEntityId, String manifestId) {
-    }
-
-    protected void openFollowUpVisit(String baseEntityId) {
-//        implement
+    protected void openProfile(String batchNumber) {
     }
 
     @Override

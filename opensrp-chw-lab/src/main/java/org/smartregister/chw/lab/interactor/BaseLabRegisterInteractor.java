@@ -4,7 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.jetbrains.annotations.NotNull;
 import org.smartregister.chw.lab.LabLibrary;
-import org.smartregister.chw.lab.contract.BaseCdpRegisterContract;
+import org.smartregister.chw.lab.contract.BaseLabRegisterContract;
 import org.smartregister.chw.lab.pojo.CdpOutletEventClient;
 import org.smartregister.chw.lab.pojo.RegisterParams;
 import org.smartregister.chw.lab.util.AppExecutors;
@@ -28,7 +28,7 @@ import static org.smartregister.chw.lab.util.LabUtil.getClientProcessorForJava;
 import static org.smartregister.chw.lab.util.LabUtil.getUniqueIdRepository;
 import static org.smartregister.chw.lab.util.LabUtil.updateOpenSRPId;
 
-public class BaseLabRegisterInteractor implements BaseCdpRegisterContract.Interactor {
+public class BaseLabRegisterInteractor implements BaseLabRegisterContract.Interactor {
 
     private final AppExecutors appExecutors;
 
@@ -42,7 +42,7 @@ public class BaseLabRegisterInteractor implements BaseCdpRegisterContract.Intera
     }
 
     @Override
-    public void saveRegistration(final String jsonString, final BaseCdpRegisterContract.InteractorCallBack callBack) {
+    public void saveRegistration(final String jsonString, final BaseLabRegisterContract.InteractorCallBack callBack) {
 
         Runnable runnable = () -> {
             try {
@@ -56,7 +56,7 @@ public class BaseLabRegisterInteractor implements BaseCdpRegisterContract.Intera
         appExecutors.diskIO().execute(runnable);
     }
 
-    public void getNextUniqueId(final Triple<String, String, String> triple, final BaseCdpRegisterContract.InteractorCallBack callBack) {
+    public void getNextUniqueId(final Triple<String, String, String> triple, final BaseLabRegisterContract.InteractorCallBack callBack) {
         Runnable runnable = () -> {
             UniqueId uniqueId = getUniqueIdRepository().getNextUniqueId();
             final String entityId = uniqueId != null ? uniqueId.getOpenmrsId() : "";
@@ -73,7 +73,7 @@ public class BaseLabRegisterInteractor implements BaseCdpRegisterContract.Intera
     }
 
     public void saveRegistration(final List<CdpOutletEventClient> cdpOutletEventClientList, final String jsonString,
-                                 final RegisterParams registerParams, final BaseCdpRegisterContract.InteractorCallBack callBack) {
+                                 final RegisterParams registerParams, final BaseLabRegisterContract.InteractorCallBack callBack) {
         Runnable runnable = () -> {
             saveRegistration(cdpOutletEventClientList, jsonString, registerParams);
             appExecutors.mainThread().execute(() -> callBack.onRegistrationSaved(registerParams.isEditMode()));

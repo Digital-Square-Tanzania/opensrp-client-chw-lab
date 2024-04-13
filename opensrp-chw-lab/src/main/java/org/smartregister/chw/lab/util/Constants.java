@@ -32,18 +32,16 @@ public interface Constants {
 
         String LAB_HVL_PROCESSING = "lab_hvl_processing";
 
+        String LAB_HVL_RESULTS = "lab_hvl_results";
+
+        String LAB_HEID_RESULTS = "lab_heid_results";
+
         String LAB_MANIFEST_SETTINGS = "lab_manifest_settings";
 
+        String LAB_MANIFEST_DISPATCH = "lab_manifest_dispatch";
+
         String CDP_OUTLET_REGISTRATION = "cdp_outlet_registration";
-        String EDIT_CDP_OUTLET = "edit_cdp_outlet";
-        String CDP_OUTLET_RESTOCK = "cdp_outlet_restock";
-        String CD_OUTLET_VISIT = "cdp_outlet_visit";
-        String CDP_CONDOM_ORDER = "cdp_condom_order";
-        String CDP_CONDOM_DISTRIBUTION = "cdp_condom_distribution_outside";
-        String CDP_CONDOM_ORDER_FACILITY = "cdp_facility_order_form";
-        String CDP_RECEIVE_CONDOM_FROM_ORGANIZATIONS = "cdp_receive_condom_from_organizations";
-        String CDP_RECEIVE_CONDOM_FACILITY = "cdp_receive_condom_facility";
-        String CDP_CONDOM_DISTRIBUTION_WITHIN = "cdp_condom_distribution_within";
+
     }
 
     interface TABLES {
@@ -57,6 +55,7 @@ public interface Constants {
     interface ACTIVITY_PAYLOAD {
         String BASE_ENTITY_ID = "BASE_ENTITY_ID";
         String TEST_SAMPLE_ID = "TEST_SAMPLE_ID";
+        String BATCH_NUMBER = "BATCH_NUMBER";
         String FAMILY_BASE_ENTITY_ID = "FAMILY_BASE_ENTITY_ID";
         String ACTION = "ACTION";
         String LAB_FORM_NAME = "LAB_FORM_NAME";
@@ -93,9 +92,15 @@ public interface Constants {
 
         String DISPATCH_TIME = "dispatch_time";
 
+        String DISPATCHER_NAME = "dispatcher_name";
+
         String DESTINATION_HUB_NAME = "destination_hub_name";
 
         String DESTINATION_HUB_UUID = "destination_hub_uuid";
     }
 
+    interface SAMPLE_TYPES {
+        String HEID = "HEID";
+        String HVL = "HVL";
+    }
 }

@@ -3,7 +3,6 @@ package org.smartregister.chw.lab.fragment;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
@@ -226,6 +225,14 @@ public class BaseLabRequestsRegisterFragment extends BaseRegisterFragment implem
             }
         });
 
+
+        if (tabLayout.getSelectedTabPosition() == 0) {
+            customGroupFilter = presenter().getTestSamplesWithNoResultsQuery();
+            filterandSortExecute();
+        } else {
+            customGroupFilter = presenter().getTestSamplesWithResultsQuery();
+            filterandSortExecute();
+        }
     }
 
 

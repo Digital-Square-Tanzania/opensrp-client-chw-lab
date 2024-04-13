@@ -72,6 +72,7 @@
     <string name="no_unique_id">No unique Id found</string>
     <string name="return_to_all_sample_test_requests">Return to Sample Test Requests</string>
     <string name="record_test_sample_collection">Record Test Sample Processing</string>
+    <string name="record_test_sample_results">Record Test Sample Results</string>
     <string name="call_focal_person">Focal Person</string>
     <string name="last_recorded_stock">Last recorded stock: %d</string>
     <string name="type_label">Type:</string>
@@ -100,17 +101,17 @@
     <string name="order_status_in_transit">In Transit</string>
     <string name="order_status_complete">Successful</string>
     <string name="order_status_failed">Out Of Stock</string>
-    <string name="return_to_orders">Return to all Orders</string>
-    <string name="order_request_details">Order Request Details</string>
+    <string name="return_to_all_manifests">Return to all Manifests</string>
+    <string name="manifest_details_title">Manifest Details</string>
     <string name="requests">Pending Requests</string>
     <string name="request_date_label_text">Request Date</string>
     <string name="health_facility_name_label">Health Facility Name</string>
     <string name="requester_name_label">Requester Name</string>
-    <string name="stock_distribution_label">Stock Distribution</string>
-    <string name="out_of_stock_label">Out of Stock</string>
+    <string name="dispatch_label">DISPATCH</string>
+    <string name="save_draft_label">SAVE DRAFT</string>
     <string name="out_of_stock_message">Confirming this, will close this order request and mark it as failed</string>
     <string name="mark_as_received">Mark As Received</string>
-    <string name="facility_response_label">Facility Response</string>
+    <string name="sample_list">Sample List:</string>
     <string name="response_date_label_text">Response Date</string>
     <string name="receive_condoms">Receive Condoms\nFrom Organizations</string>
     <string name="received_from_history">Received From History</string>
@@ -123,12 +124,23 @@
 
     <string name="unprocessed">Unprocessed</string>
     <string name="uploaded">Uploaded</string>
+    <string name="has_results">RESULTS</string>
+    <string name="has_invalid_results">INVALID</string>
+    <string name="has_rejected_results">REJECTED</string>
     <string name="processed">Processed</string>
     <string name="patient_id">Patient ID</string>
     <string name="sample_id">Sample ID</string>
     <string name="create_manifest">Create Manifest</string>
     <string name="set_destination_hub_lab">Please configure Destination Hub/Lab</string>
     <string name="no_test_samples">There are no test samples</string>
+
+    <string name="test_results_copies_per_ml">%s copies/ml</string>
+
+
+    <string name="dispatched">DISPATCHED</string>
+    <string name="draft">DRAFT</string>
+    <string name="hvl_test_sample_title">HVL Test Sample Details</string>
+    <string name="heid_test_sample_title">HEID Test Sample Details</string>
 
 
 </resources>

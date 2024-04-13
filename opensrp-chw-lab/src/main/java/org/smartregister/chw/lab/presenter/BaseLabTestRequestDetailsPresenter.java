@@ -4,17 +4,10 @@ import android.content.Context;
 
 import androidx.annotation.Nullable;
 
-import com.vijay.jsonwizard.constants.JsonFormConstants;
-
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.chw.lab.contract.BaseLabTestRequestsProfileContract;
-import org.smartregister.chw.lab.dao.LabDao;
-import org.smartregister.chw.lab.domain.OutletObject;
 import org.smartregister.chw.lab.pojo.CdpOutletEventClient;
 import org.smartregister.chw.lab.pojo.RegisterParams;
-import org.smartregister.chw.lab.util.Constants;
-import org.smartregister.util.JsonFormUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -22,25 +15,23 @@ import java.util.List;
 import timber.log.Timber;
 
 
-public class BaseCdpProfilePresenter implements BaseLabTestRequestsProfileContract.Presenter {
+public class BaseLabTestRequestDetailsPresenter implements BaseLabTestRequestsProfileContract.Presenter {
     protected WeakReference<BaseLabTestRequestsProfileContract.View> view;
     protected BaseLabTestRequestsProfileContract.Interactor interactor;
     protected BaseLabTestRequestsProfileContract.Model model;
     protected Context context;
 
-    public BaseCdpProfilePresenter(BaseLabTestRequestsProfileContract.View view, BaseLabTestRequestsProfileContract.Interactor interactor, BaseLabTestRequestsProfileContract.Model model, OutletObject outletObject) {
+    public BaseLabTestRequestDetailsPresenter(BaseLabTestRequestsProfileContract.View view, BaseLabTestRequestsProfileContract.Interactor interactor, BaseLabTestRequestsProfileContract.Model model) {
         this.view = new WeakReference<>(view);
         this.interactor = interactor;
         this.model = model;
-        fillProfileData(outletObject);
-        refreshLastVisitData(outletObject);
+        fillProfileData();
+        refreshLastVisitData();
     }
 
     @Override
-    public void fillProfileData(OutletObject outletObject) {
-        if (outletObject != null && getView() != null) {
-            getView().setProfileViewWithData(outletObject);
-        }
+    public void fillProfileData() {
+        getView().setProfileViewWithData();
     }
 
     @Override
@@ -49,7 +40,7 @@ public class BaseCdpProfilePresenter implements BaseLabTestRequestsProfileContra
     }
 
     @Override
-    public void refreshLastVisitData(OutletObject outletObject) {
+    public void refreshLastVisitData() {
 
     }
 

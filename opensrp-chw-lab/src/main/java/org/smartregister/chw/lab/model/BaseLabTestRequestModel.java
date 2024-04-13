@@ -9,7 +9,7 @@ import org.smartregister.chw.lab.util.LabJsonFormUtils;
 
 import java.util.List;
 
-public class BaseCdpProfileModel implements BaseLabTestRequestsProfileContract.Model {
+public class BaseLabTestRequestModel implements BaseLabTestRequestsProfileContract.Model {
     @Override
     public JSONObject getFormAsJson(String formName, @NonNull String entityId, String currentLocationId) throws Exception {
         JSONObject form = LabJsonFormUtils.getFormAsJson(formName);

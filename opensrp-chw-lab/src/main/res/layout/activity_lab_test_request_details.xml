@@ -73,7 +73,6 @@
                     android:layout_below="@id/parent"
                     android:layout_alignParentStart="true"
                     android:layout_marginTop="8dp"
-                    android:text="HVL Test Sample Details"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -82,43 +81,6 @@
                     android:layout_height="1dp"
                     android:layout_marginTop="8dp"
                     android:background="#CCCCCC" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="none"
-                        android:fontFamily="@font/roboto_medium"
-                        android:scrollHorizontally="false"
-                        android:text="SampleId"
-                        android:textColor="@color/primary"
-                        android:textSize="@dimen/register_member_village_size"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/register_dot_separator_margin"
-                        android:text=":"
-                        android:textColor="@android:color/black" />
-
-                    <TextView
-                        android:id="@+id/sample_id"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:ellipsize="none"
-                        android:fontFamily="@font/roboto_medium"
-                        android:scrollHorizontally="false"
-                        android:text="1223-31-13"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/register_member_village_size" />
-                </LinearLayout>
-
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -151,11 +113,44 @@
                         android:ellipsize="none"
                         android:fontFamily="@font/roboto_medium"
                         android:scrollHorizontally="false"
-                        android:text="12-12-3011-133424"
                         android:textColor="@color/black"
                         android:textSize="@dimen/register_member_village_size" />
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="none"
+                        android:fontFamily="@font/roboto_medium"
+                        android:scrollHorizontally="false"
+                        android:text="SampleId"
+                        android:textColor="@color/primary"
+                        android:textSize="@dimen/register_member_village_size"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/register_dot_separator_margin"
+                        android:text=":"
+                        android:textColor="@android:color/black" />
+
+                    <TextView
+                        android:id="@+id/sample_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:ellipsize="none"
+                        android:fontFamily="@font/roboto_medium"
+                        android:scrollHorizontally="false"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/register_member_village_size" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -188,11 +183,9 @@
                         android:ellipsize="none"
                         android:fontFamily="@font/roboto_medium"
                         android:scrollHorizontally="false"
-                        android:text="12-12-2024"
                         android:textColor="@color/black"
                         android:textSize="@dimen/register_member_village_size" />
                 </LinearLayout>
-
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -225,15 +218,15 @@
                         android:ellipsize="none"
                         android:fontFamily="@font/roboto_medium"
                         android:scrollHorizontally="false"
-                        android:text="12-12-2024"
                         android:textColor="@color/black"
                         android:textSize="@dimen/register_member_village_size" />
                 </LinearLayout>
 
-
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/sample_type_layout"
+                    android:visibility="gone"
                     android:layout_marginTop="8dp">
 
                     <TextView
@@ -242,7 +235,7 @@
                         android:ellipsize="none"
                         android:fontFamily="@font/roboto_medium"
                         android:scrollHorizontally="false"
-                        android:text="Manifest ID"
+                        android:text="Sample Type"
                         android:textColor="@color/primary"
                         android:textSize="@dimen/register_member_village_size"
                         android:textStyle="bold" />
@@ -255,14 +248,86 @@
                         android:textColor="@android:color/black" />
 
                     <TextView
-                        android:id="@+id/manifest_id"
+                        android:id="@+id/sample_type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:ellipsize="none"
                         android:fontFamily="@font/roboto_medium"
                         android:scrollHorizontally="false"
-                        android:text="12-32-1232-233324"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/register_member_village_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:id="@+id/separation_date_layout"
+                    android:visibility="gone">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="none"
+                        android:fontFamily="@font/roboto_medium"
+                        android:scrollHorizontally="false"
+                        android:text="Sample Separation Date"
+                        android:textColor="@color/primary"
+                        android:textSize="@dimen/register_member_village_size"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/register_dot_separator_margin"
+                        android:text=":"
+                        android:textColor="@android:color/black" />
+
+                    <TextView
+                        android:id="@+id/sample_separation_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:ellipsize="none"
+                        android:fontFamily="@font/roboto_medium"
+                        android:scrollHorizontally="false"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/register_member_village_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:id="@+id/separation_time_layout"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="none"
+                        android:fontFamily="@font/roboto_medium"
+                        android:scrollHorizontally="false"
+                        android:text="Sample Separation Time"
+                        android:textColor="@color/primary"
+                        android:textSize="@dimen/register_member_village_size"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/register_dot_separator_margin"
+                        android:text=":"
+                        android:textColor="@android:color/black" />
+
+                    <TextView
+                        android:id="@+id/sample_separation_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:ellipsize="none"
+                        android:fontFamily="@font/roboto_medium"
+                        android:scrollHorizontally="false"
                         android:textColor="@color/black"
                         android:textSize="@dimen/register_member_village_size" />
                 </LinearLayout>
@@ -280,7 +345,7 @@
                         android:layout_below="@id/parent"
                         android:layout_alignParentStart="true"
                         android:layout_marginTop="32dp"
-                        android:text="HVL Test Sample Details"
+                        android:text="Test Results Details"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -321,11 +386,9 @@
                             android:ellipsize="none"
                             android:fontFamily="@font/roboto_medium"
                             android:scrollHorizontally="false"
-                            android:text="Derick Otieno"
                             android:textColor="@color/black"
                             android:textSize="@dimen/register_member_village_size" />
                     </LinearLayout>
-
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -358,11 +421,9 @@
                             android:ellipsize="none"
                             android:fontFamily="@font/roboto_medium"
                             android:scrollHorizontally="false"
-                            android:text="Mzungu Daniel"
                             android:textColor="@color/black"
                             android:textSize="@dimen/register_member_village_size" />
                     </LinearLayout>
-
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -395,12 +456,9 @@
                             android:ellipsize="none"
                             android:fontFamily="@font/roboto_medium"
                             android:scrollHorizontally="false"
-                            android:text="2023 - 12 - 22"
                             android:textColor="@color/black"
                             android:textSize="@dimen/register_member_village_size" />
                     </LinearLayout>
-
-
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -433,17 +491,15 @@
                             android:ellipsize="none"
                             android:fontFamily="@font/roboto_medium"
                             android:scrollHorizontally="false"
-                            android:text="2023 - 12 - 22"
                             android:textColor="@color/black"
                             android:textSize="@dimen/register_member_village_size" />
                     </LinearLayout>
 
-
-
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp">
+                        android:layout_marginTop="8dp"
+                        android:visibility="gone">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -471,50 +527,12 @@
                             android:ellipsize="none"
                             android:fontFamily="@font/roboto_medium"
                             android:scrollHorizontally="false"
-                            android:text="Temeke Hosp"
                             android:textColor="@color/black"
                             android:textSize="@dimen/register_member_village_size" />
                     </LinearLayout>
 
-
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:ellipsize="none"
-                            android:fontFamily="@font/roboto_medium"
-                            android:scrollHorizontally="false"
-                            android:text="Test Results"
-                            android:textColor="@color/primary"
-                            android:textSize="@dimen/register_member_village_size"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/register_dot_separator_margin"
-                            android:text=":"
-                            android:textColor="@android:color/black" />
-
-                        <TextView
-                            android:id="@+id/test_results"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:ellipsize="none"
-                            android:fontFamily="@font/roboto_medium"
-                            android:scrollHorizontally="false"
-                            android:text="1001 copies/ml"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/register_member_village_size" />
-                    </LinearLayout>
-
-
-                    <LinearLayout
+                        android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp">
@@ -545,10 +563,213 @@
                             android:ellipsize="none"
                             android:fontFamily="@font/roboto_medium"
                             android:scrollHorizontally="false"
-                            android:text="HIVVL"
                             android:textColor="@color/black"
                             android:textSize="@dimen/register_member_village_size" />
                     </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/rejection_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+                    <TextView
+                        android:id="@+id/sampleRejectionDetails"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/parent"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginTop="32dp"
+                        android:text="Rejection Details"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="8dp"
+                        android:background="#CCCCCC" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="none"
+                            android:fontFamily="@font/roboto_medium"
+                            android:scrollHorizontally="false"
+                            android:text="Reasons for rejection"
+                            android:textColor="@color/primary"
+                            android:textSize="@dimen/register_member_village_size"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/register_dot_separator_margin"
+                            android:text=":"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/reasons_for_rejection"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:ellipsize="none"
+                            android:fontFamily="@font/roboto_medium"
+                            android:scrollHorizontally="false"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/register_member_village_size" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="none"
+                            android:fontFamily="@font/roboto_medium"
+                            android:scrollHorizontally="false"
+                            android:text="Rejection Date"
+                            android:textColor="@color/primary"
+                            android:textSize="@dimen/register_member_village_size"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/register_dot_separator_margin"
+                            android:text=":"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/rejection_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:ellipsize="none"
+                            android:fontFamily="@font/roboto_medium"
+                            android:scrollHorizontally="false"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/register_member_village_size" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="none"
+                            android:fontFamily="@font/roboto_medium"
+                            android:scrollHorizontally="false"
+                            android:text="Rejected By"
+                            android:textColor="@color/primary"
+                            android:textSize="@dimen/register_member_village_size"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/register_dot_separator_margin"
+                            android:text=":"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/rejected_by"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:ellipsize="none"
+                            android:fontFamily="@font/roboto_medium"
+                            android:scrollHorizontally="false"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/register_member_village_size" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="none"
+                            android:fontFamily="@font/roboto_medium"
+                            android:scrollHorizontally="false"
+                            android:text="Contact Info"
+                            android:textColor="@color/primary"
+                            android:textSize="@dimen/register_member_village_size"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/register_dot_separator_margin"
+                            android:text=":"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/contact_info"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:ellipsize="none"
+                            android:fontFamily="@font/roboto_medium"
+                            android:scrollHorizontally="false"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/register_member_village_size" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/results_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="none"
+                        android:fontFamily="@font/roboto_medium"
+                        android:scrollHorizontally="false"
+                        android:text="Test Results"
+                        android:textColor="@color/primary"
+                        android:textSize="@dimen/register_member_village_size"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/register_dot_separator_margin"
+                        android:text=":"
+                        android:textColor="@android:color/black" />
+
+                    <TextView
+                        android:id="@+id/test_results"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:ellipsize="none"
+                        android:fontFamily="@font/roboto_medium"
+                        android:scrollHorizontally="false"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/register_member_village_size" />
                 </LinearLayout>
 
                 <LinearLayout

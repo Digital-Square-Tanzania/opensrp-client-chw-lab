@@ -6,6 +6,7 @@ import static org.smartregister.util.JsonFormUtils.generateRandomUUIDString;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +26,7 @@ import org.smartregister.repository.AllSharedPreferences;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.UUID;
 
@@ -32,12 +34,16 @@ public class CreateManifestActivity extends AppCompatActivity {
     public static List<String> selectedSamples = new ArrayList<>();
     protected String manifestType;
 
+    private boolean selectedAll = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         manifestType = getIntent().getStringExtra(Constants.ACTIVITY_PAYLOAD.MANIFEST_TYPE);
 
         setContentView(R.layout.activity_create_manifest);
+
+        View selectAllView = findViewById(R.id.select_all);
 
         TextView textView = findViewById(R.id.customFontTextViewName);
         textView.setText(R.string.create_manifest);
@@ -49,12 +55,25 @@ public class CreateManifestActivity extends AppCompatActivity {
 
         ListView listView = findViewById(R.id.multiple_list_view);
 
-        TestSampleAdapter arrayAdapter = new TestSampleAdapter(LabDao.getTestSamplesRequests(manifestType), CreateManifestActivity.this);
+        TestSampleAdapter arrayAdapter = new TestSampleAdapter(LabDao.getTestSamplesRequestsNotInManifests(manifestType), CreateManifestActivity.this);
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         listView.setAdapter(arrayAdapter);
         listView.setOnItemClickListener((adapterView, view, i, l) -> {
             String items = (String) adapterView.getItemAtPosition(i);
             Toast.makeText(CreateManifestActivity.this, "select by list of item" + items, Toast.LENGTH_SHORT).show();
+        });
+
+        selectAllView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (selectedAll) {
+                    arrayAdapter.deselectAll();
+                    selectedAll = false;
+                } else {
+                    arrayAdapter.selectAll();
+                    selectedAll = true;
+                }
+            }
         });
 
 
@@ -73,7 +92,7 @@ public class CreateManifestActivity extends AppCompatActivity {
 
         baseEvent.addObs(new Obs().withFormSubmissionField(Constants.JSON_FORM_KEY.DESTINATION_HUB_UUID).withValue(LabDao.getDestinationHubUuid()).withFieldCode(Constants.JSON_FORM_KEY.DESTINATION_HUB_UUID).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<>()));
 
-        baseEvent.addObs(new Obs().withFormSubmissionField(Constants.JSON_FORM_KEY.SAMPLES_LIST).withValue(selectedSamples.toString()).withFieldCode(Constants.JSON_FORM_KEY.SAMPLES_LIST).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<>()));
+        baseEvent.addObs(new Obs().withFormSubmissionField(Constants.JSON_FORM_KEY.SAMPLES_LIST).withValue((new LinkedHashSet<>(selectedSamples)).toString()).withFieldCode(Constants.JSON_FORM_KEY.SAMPLES_LIST).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<>()));
 
         persistEvent(baseEvent);
         LabUtil.startClientProcessing();

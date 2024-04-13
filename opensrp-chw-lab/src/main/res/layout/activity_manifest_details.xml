@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/collapsing_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:contentInsetEnd="0dp"
+        app:contentInsetLeft="0dp"
+        app:contentInsetRight="0dp"
+        app:contentInsetStart="0dp"
+        app:contentInsetStartWithNavigation="0dp"
+        app:layout_collapseMode="pin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <org.smartregister.view.customcontrols.CustomFontTextView
+            android:id="@+id/tvTitle"
+            style="@style/CustomFontTextViewStyle.ClientList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|left"
+            android:paddingStart="0dp"
+            android:paddingLeft="0dp"
+            android:text="@string/return_to_all_manifests"
+            android:textColor="@color/customAppThemeBlue"
+            android:textSize="17sp" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/collapsing_toolbar"
+        app:layout_constraintBottom_toTopOf="@+id/horizontal_guideline">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/request_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="16dp">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/manifest_details_title"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:id="@+id/batch_number_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/title">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="none"
+                        android:fontFamily="@font/roboto_medium"
+                        android:scrollHorizontally="false"
+                        android:text="Batch Number"
+                        android:textColor="@color/primary"
+                        android:textSize="@dimen/register_member_village_size"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/register_dot_separator_margin"
+                        android:text=":"
+                        android:textColor="@android:color/black" />
+
+                    <TextView
+                        android:id="@+id/batch_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:ellipsize="none"
+                        android:fontFamily="@font/roboto_medium"
+                        android:scrollHorizontally="false"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/register_member_village_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/manifest_type_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/batch_number_layout">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="none"
+                        android:fontFamily="@font/roboto_medium"
+                        android:scrollHorizontally="false"
+                        android:text="Manifest Type"
+                        android:textColor="@color/primary"
+                        android:textSize="@dimen/register_member_village_size"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/register_dot_separator_margin"
+                        android:text=":"
+                        android:textColor="@android:color/black" />
+
+                    <TextView
+                        android:id="@+id/manifest_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:ellipsize="none"
+                        android:fontFamily="@font/roboto_medium"
+                        android:scrollHorizontally="false"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/register_member_village_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/destination_hub_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/manifest_type_layout">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="none"
+                        android:fontFamily="@font/roboto_medium"
+                        android:scrollHorizontally="false"
+                        android:text="Destination Hub/Lab"
+                        android:textColor="@color/primary"
+                        android:textSize="@dimen/register_member_village_size"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/register_dot_separator_margin"
+                        android:text=":"
+                        android:textColor="@android:color/black" />
+
+                    <TextView
+                        android:id="@+id/destination_hub"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:ellipsize="none"
+                        android:fontFamily="@font/roboto_medium"
+                        android:scrollHorizontally="false"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/register_member_village_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/dispatch_date_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:visibility="gone"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/destination_hub_layout">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="none"
+                        android:fontFamily="@font/roboto_medium"
+                        android:scrollHorizontally="false"
+                        android:text="Dispatch Date"
+                        android:textColor="@color/primary"
+                        android:textSize="@dimen/register_member_village_size"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/register_dot_separator_margin"
+                        android:text=":"
+                        android:textColor="@android:color/black" />
+
+                    <TextView
+                        android:id="@+id/dispatch_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:ellipsize="none"
+                        android:fontFamily="@font/roboto_medium"
+                        android:scrollHorizontally="false"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/register_member_village_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/dispatch_time_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:visibility="gone"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/dispatch_date_layout">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="none"
+                        android:fontFamily="@font/roboto_medium"
+                        android:scrollHorizontally="false"
+                        android:text="Dispatch Time"
+                        android:textColor="@color/primary"
+                        android:textSize="@dimen/register_member_village_size"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/register_dot_separator_margin"
+                        android:text=":"
+                        android:textColor="@android:color/black" />
+
+                    <TextView
+                        android:id="@+id/dispatch_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:ellipsize="none"
+                        android:fontFamily="@font/roboto_medium"
+                        android:scrollHorizontally="false"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/register_member_village_size" />
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <TextView
+                    android:id="@+id/sample_list_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:gravity="center"
+                    android:text="@string/sample_list"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <ImageView
+                    android:id="@+id/edit"
+                    android:padding="12dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:text="@string/sample_list"
+                    android:layout_marginRight="8dp"
+                    app:srcCompat="@drawable/filter_list"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/sample_list_title">
+                    <ListView
+                        android:id="@+id/sample_list"
+                        android:layout_width="wrap_content"
+                        android:layout_height="400dp"
+                        android:layout_marginTop="8dp"
+                        tools:text="Type" />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.constraintlayout.widget.Group
+                    android:id="@+id/tv_restock_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:constraint_referenced_ids="sample_list_title,sample_list_title,edit" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
+    <Button
+        android:id="@+id/btn_save_draft"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:background="@drawable/outlet_visit_btn"
+        android:gravity="center"
+        android:text="@string/save_draft_label"
+        android:layout_marginBottom="5dp"
+        android:textAllCaps="false"
+        android:visibility="gone"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_dispatch"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <Button
+        android:id="@+id/btn_dispatch"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:background="@drawable/outlet_visit_btn"
+        android:gravity="center"
+        android:layout_marginBottom="5dp"
+        android:text="@string/dispatch_label"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_save_draft" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontal_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_end="60dp"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

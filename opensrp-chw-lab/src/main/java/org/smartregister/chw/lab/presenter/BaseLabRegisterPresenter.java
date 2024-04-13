@@ -4,7 +4,7 @@ import android.util.Log;
 
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
-import org.smartregister.chw.lab.contract.BaseCdpRegisterContract;
+import org.smartregister.chw.lab.contract.BaseLabRegisterContract;
 import org.smartregister.lab.R;
 import org.smartregister.chw.lab.pojo.CdpOutletEventClient;
 import org.smartregister.chw.lab.pojo.RegisterParams;
@@ -14,15 +14,15 @@ import java.util.List;
 
 import timber.log.Timber;
 
-public class BaseLabRegisterPresenter implements BaseCdpRegisterContract.Presenter, BaseCdpRegisterContract.InteractorCallBack {
+public class BaseLabRegisterPresenter implements BaseLabRegisterContract.Presenter, BaseLabRegisterContract.InteractorCallBack {
 
     public static final String TAG = BaseLabRegisterPresenter.class.getName();
 
-    protected WeakReference<BaseCdpRegisterContract.View> viewReference;
-    private BaseCdpRegisterContract.Interactor interactor;
-    protected BaseCdpRegisterContract.Model model;
+    protected WeakReference<BaseLabRegisterContract.View> viewReference;
+    private BaseLabRegisterContract.Interactor interactor;
+    protected BaseLabRegisterContract.Model model;
 
-    public BaseLabRegisterPresenter(BaseCdpRegisterContract.View view, BaseCdpRegisterContract.Model model, BaseCdpRegisterContract.Interactor interactor) {
+    public BaseLabRegisterPresenter(BaseLabRegisterContract.View view, BaseLabRegisterContract.Model model, BaseLabRegisterContract.Interactor interactor) {
         viewReference = new WeakReference<>(view);
         this.interactor = interactor;
         this.model = model;
@@ -113,7 +113,7 @@ public class BaseLabRegisterPresenter implements BaseCdpRegisterContract.Present
 //        implement
     }
 
-    private BaseCdpRegisterContract.View getView() {
+    private BaseLabRegisterContract.View getView() {
         if (viewReference != null)
             return viewReference.get();
         else

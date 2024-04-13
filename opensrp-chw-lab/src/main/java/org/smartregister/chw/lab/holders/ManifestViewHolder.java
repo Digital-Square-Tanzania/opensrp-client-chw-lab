@@ -26,5 +26,6 @@ public class ManifestViewHolder extends RecyclerView.ViewHolder {
         manifestType = itemView.findViewById(R.id.manifest_type);
         destinationHub = itemView.findViewById(R.id.destination_hub);
         status = itemView.findViewById(R.id.status);
+        registerColumns = itemView.findViewById(R.id.manifest_column);
     }
 }

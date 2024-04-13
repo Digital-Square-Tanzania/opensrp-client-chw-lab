@@ -2,17 +2,16 @@ package org.smartregister.chw.lab.contract;
 
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONObject;
-import org.smartregister.chw.lab.domain.OutletObject;
 import org.smartregister.chw.lab.pojo.CdpOutletEventClient;
 import org.smartregister.chw.lab.pojo.RegisterParams;
-import org.smartregister.chw.lab.presenter.BaseCdpProfilePresenter;
+import org.smartregister.chw.lab.presenter.BaseLabTestRequestDetailsPresenter;
 
 import java.util.List;
 
 public interface BaseLabTestRequestsProfileContract {
     interface View extends InteractorCallBack {
 
-        void setProfileViewWithData(OutletObject outletObject);
+        void setProfileViewWithData();
 
 
         void showProgressBar(boolean status);
@@ -25,7 +24,7 @@ public interface BaseLabTestRequestsProfileContract {
 
     interface Presenter {
 
-        void fillProfileData(@Nullable OutletObject outletObject);
+        void fillProfileData();
 
         void saveForm(String jsonString);
 
@@ -39,7 +38,7 @@ public interface BaseLabTestRequestsProfileContract {
 
         void recordCDPButton(String visitState);
 
-        void refreshLastVisitData(OutletObject outletObject);
+        void refreshLastVisitData();
     }
 
     interface Interactor {
@@ -48,7 +47,7 @@ public interface BaseLabTestRequestsProfileContract {
 
         void saveRegistration(String jsonString, final BaseLabTestRequestsProfileContract.InteractorCallBack callBack);
 
-        void saveRegistration(List<CdpOutletEventClient> cdpOutletEventClientList, String jsonString, RegisterParams registerParams, BaseCdpProfilePresenter baseCdpProfilePresenter);
+        void saveRegistration(List<CdpOutletEventClient> cdpOutletEventClientList, String jsonString, RegisterParams registerParams, BaseLabTestRequestDetailsPresenter baseLabTestRequestDetailsPresenter);
     }
 
     interface Model {

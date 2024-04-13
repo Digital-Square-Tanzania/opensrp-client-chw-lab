@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.smartregister.chw.lab.dao.LabDao;
 import org.smartregister.chw.lab.fragment.BaseLabRequestsRegisterFragment;
 import org.smartregister.chw.lab.holders.FooterViewHolder;
 import org.smartregister.chw.lab.util.DBConstants;
@@ -63,6 +62,8 @@ public class BaseLabRegisterProvider implements RecyclerViewProvider<BaseLabRegi
             String sampleRequestDate = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.SAMPLE_REQUEST_DATE, true);
             String sampleCollectionDate = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.SAMPLE_COLLECTION_DATE, true);
             String patientId = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.PATIENT_ID, false);
+            String dispatched = Utils.getValue(pc.getColumnmaps(), "dispatched", false);
+            String results = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.RESULTS, false);
 
 
             String sampleProcessed = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.SAMPLE_PROCESSED, false);
@@ -77,7 +78,16 @@ public class BaseLabRegisterProvider implements RecyclerViewProvider<BaseLabRegi
             if (sampleProcessed == null || sampleProcessed.isEmpty()) {
                 viewHolder.status.setText(context.getString(R.string.unprocessed));
                 viewHolder.status.setTextColor(context.getResources().getColor(R.color.error_color));
-            } else if (LabDao.isSampleUploaded(sampleId)) {
+            } else if (results != null && results.equals("invalid")) {
+                viewHolder.status.setText(context.getString(R.string.has_invalid_results));
+                viewHolder.status.setTextColor(context.getResources().getColor(R.color.error_color));
+            }else if (results != null && results.equals("rejected")) {
+                viewHolder.status.setText(context.getString(R.string.has_rejected_results));
+                viewHolder.status.setTextColor(context.getResources().getColor(R.color.error_color));
+            } else if (results != null && !results.isEmpty()) {
+                viewHolder.status.setText(context.getString(R.string.has_results));
+                viewHolder.status.setTextColor(context.getResources().getColor(R.color.alert_complete_green));
+            } else if (dispatched != null && dispatched.equalsIgnoreCase("yes")) {
                 viewHolder.status.setText(context.getString(R.string.uploaded));
                 viewHolder.status.setTextColor(context.getResources().getColor(R.color.alert_complete_green));
             } else {
@@ -163,7 +173,7 @@ public class BaseLabRegisterProvider implements RecyclerViewProvider<BaseLabRegi
             sampleTakenDate = itemView.findViewById(R.id.sample_taken_date);
             patientId = itemView.findViewById(R.id.patient_id);
             status = itemView.findViewById(R.id.status);
-            sampleRequestColumn = itemView.findViewById(R.id.manifest_column);
+            sampleRequestColumn = itemView.findViewById(R.id.sample_test_collumn);
         }
     }
 

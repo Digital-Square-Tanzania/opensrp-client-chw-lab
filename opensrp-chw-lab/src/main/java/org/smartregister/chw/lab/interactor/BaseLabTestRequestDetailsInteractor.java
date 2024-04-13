@@ -10,7 +10,7 @@ import androidx.annotation.VisibleForTesting;
 import org.smartregister.chw.lab.contract.BaseLabTestRequestsProfileContract;
 import org.smartregister.chw.lab.pojo.CdpOutletEventClient;
 import org.smartregister.chw.lab.pojo.RegisterParams;
-import org.smartregister.chw.lab.presenter.BaseCdpProfilePresenter;
+import org.smartregister.chw.lab.presenter.BaseLabTestRequestDetailsPresenter;
 import org.smartregister.chw.lab.util.AppExecutors;
 import org.smartregister.chw.lab.util.LabUtil;
 import org.smartregister.clientandeventmodel.Client;
@@ -22,15 +22,15 @@ import java.util.List;
 
 import timber.log.Timber;
 
-public class BaseCdpProfileInteractor implements BaseLabTestRequestsProfileContract.Interactor {
+public class BaseLabTestRequestDetailsInteractor implements BaseLabTestRequestsProfileContract.Interactor {
     protected AppExecutors appExecutors;
 
     @VisibleForTesting
-    BaseCdpProfileInteractor(AppExecutors appExecutors) {
+    BaseLabTestRequestDetailsInteractor(AppExecutors appExecutors) {
         this.appExecutors = appExecutors;
     }
 
-    public BaseCdpProfileInteractor() {
+    public BaseLabTestRequestDetailsInteractor() {
         this(new AppExecutors());
     }
 
@@ -54,7 +54,7 @@ public class BaseCdpProfileInteractor implements BaseLabTestRequestsProfileContr
     }
 
     @Override
-    public void saveRegistration(List<CdpOutletEventClient> cdpOutletEventClientList, String jsonString, RegisterParams registerParams, BaseCdpProfilePresenter baseCdpProfilePresenter) {
+    public void saveRegistration(List<CdpOutletEventClient> cdpOutletEventClientList, String jsonString, RegisterParams registerParams, BaseLabTestRequestDetailsPresenter baseLabTestRequestDetailsPresenter) {
         try {
             List<String> currentFormSubmissionIds = new ArrayList<>();
 

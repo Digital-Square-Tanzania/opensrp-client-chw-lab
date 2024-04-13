@@ -8,56 +8,74 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.Group;
+import androidx.viewpager.widget.ViewPager;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
-import org.smartregister.chw.lab.contract.BaseOrderDetailsContract;
-import org.smartregister.chw.lab.domain.OrderFeedbackObject;
-import org.smartregister.chw.lab.interactor.BaseOrderDetailsInteractor;
-import org.smartregister.chw.lab.model.BaseOrderDetailsModel;
-import org.smartregister.chw.lab.presenter.BaseOrderDetailsPresenter;
-import org.smartregister.chw.lab.util.LabUtil;
+import org.smartregister.chw.lab.contract.BaseManifestDetailsActivityContract;
+import org.smartregister.chw.lab.dao.LabDao;
+import org.smartregister.chw.lab.domain.Manifest;
+import org.smartregister.chw.lab.interactor.BaseManifestDetailsInteractor;
+import org.smartregister.chw.lab.model.BaseManifestDetailsModel;
+import org.smartregister.chw.lab.presenter.BaseManifestDetailsPresenter;
 import org.smartregister.chw.lab.util.Constants;
-import org.smartregister.chw.lab.util.DBConstants;
-import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.lab.R;
-import org.smartregister.util.Utils;
-import org.smartregister.view.activity.SecuredActivity;
+import org.smartregister.view.activity.BaseProfileActivity;
 
-public class BaseManifestDetailsActivity extends SecuredActivity implements BaseOrderDetailsContract.View, View.OnClickListener {
-    protected BaseOrderDetailsContract.Presenter presenter;
+import java.util.ArrayList;
+import java.util.List;
+
+import timber.log.Timber;
+
+public class BaseManifestDetailsActivity extends BaseProfileActivity implements BaseManifestDetailsActivityContract.View, View.OnClickListener {
+    protected BaseManifestDetailsActivityContract.Presenter presenter;
     protected Toolbar toolbar;
     protected TextView tvTitle;
-    protected CommonPersonObjectClient client;
-    protected TextView condomType;
-    protected TextView condomBrand;
-    protected TextView quantity;
-    protected TextView requestDate;
-    protected TextView requesterName;
-    protected TextView feedbackCondomType;
-    protected TextView feedbackCondomBrand;
-    protected TextView feedbackQuantity;
-    protected TextView responseDate;
-    protected TextView responseStatus;
-    protected Button outOfStockBtn;
-    protected Button stockDistributionBtn;
-    protected Button markAsReceivedBtn;
-    protected Group tvRestockGroup;
-    protected ConstraintLayout responseLayout;
+    protected TextView batchNumberTv;
+    protected TextView manifestTypeTv;
+    protected TextView destinationHubTv;
+    protected ImageView edit;
+    protected Button dispatchBtn;
+    protected ListView sampleList;
 
-    protected Long requestedAtMillis;
+    protected LinearLayout dispatchDateLayout;
+
+    protected TextView dispatchDateTv;
+
+    protected LinearLayout dispatchTimeLayout;
+
+    protected TextView dispatchTimeTv;
+
+    protected String batchNumber;
 
 
-    public static void startMe(Activity activity, CommonPersonObjectClient pc) {
-        Intent intent = new Intent(activity, BaseManifestDetailsActivity.class);
-        intent.putExtra(Constants.ACTIVITY_PAYLOAD.CLIENT, pc);
+    public static void startProfileActivity(Activity activity, String batchNumber) {
+        Intent intent = new Intent(activity, BaseLabTestRequestDetailsActivity.class);
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.BATCH_NUMBER, batchNumber);
         activity.startActivity(intent);
+    }
+
+    public static List<String> convertToList(String input) {
+        List<String> resultList = new ArrayList<>();
+
+        // Remove brackets and split the string by commas
+        String[] elements = input.substring(1, input.length() - 1).split(",");
+
+        // Trim each element and add it to the result list
+        for (String element : elements) {
+            resultList.add(element.trim());
+        }
+
+        return resultList;
     }
 
     @Override
@@ -65,7 +83,7 @@ public class BaseManifestDetailsActivity extends SecuredActivity implements Base
         setContentView(getMainContentView());
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            client = (CommonPersonObjectClient) getIntent().getSerializableExtra(Constants.ACTIVITY_PAYLOAD.CLIENT);
+            batchNumber = getIntent().getStringExtra(Constants.ACTIVITY_PAYLOAD.BATCH_NUMBER);
         }
         setupViews();
         initializePresenter();
@@ -73,7 +91,7 @@ public class BaseManifestDetailsActivity extends SecuredActivity implements Base
 
     @Override
     public int getMainContentView() {
-        return R.layout.activity_order_details;
+        return R.layout.activity_manifest_details;
     }
 
     @Override
@@ -82,35 +100,27 @@ public class BaseManifestDetailsActivity extends SecuredActivity implements Base
     }
 
     @Override
-    public void setDetailViewWithData(CommonPersonObjectClient pc) {
-        condomType.setText(Utils.getValue(pc, DBConstants.KEY.CONDOM_TYPE, true));
-        condomBrand.setText(Utils.getValue(pc, DBConstants.KEY.CONDOM_BRAND, true));
-        quantity.setText(Utils.getValue(pc, DBConstants.KEY.QUANTITY_REQ, false));
-        requestedAtMillis = Long.parseLong(Utils.getValue(pc, DBConstants.KEY.REQUESTED_AT, false));
-        requestDate.setText(LabUtil.formatTimeStamp(requestedAtMillis));
-        String requester = Utils.getValue(pc, DBConstants.KEY.REQUESTER, false);
-        requesterName.setText(requester);
-    }
+    public void setDetailViewWithData(String batchNumber) {
+        Manifest manifest = LabDao.getManifestByBatchNumber(batchNumber);
 
-    @Override
-    public void setDetailViewWithFeedbackData(OrderFeedbackObject feedbackObject) {
-        responseLayout.setVisibility(View.VISIBLE);
+        if (manifest != null) {
+            batchNumberTv.setText(batchNumber);
+            manifestTypeTv.setText(manifest.getManifestType());
+            destinationHubTv.setText(manifest.getDestinationHubName());
 
-        setTranslatedStringFromResources(feedbackCondomType, feedbackObject.getCondomType());
-        setTranslatedStringFromResources(feedbackCondomBrand, feedbackObject.getCondomBrand());
-        setTranslatedStringFromResources(responseStatus, "rs_" + feedbackObject.getResponseStatus());
+            if (!manifest.getDispatchDate().isEmpty()) {
+                dispatchTimeLayout.setVisibility(View.VISIBLE);
+                dispatchDateLayout.setVisibility(View.VISIBLE);
 
-        feedbackQuantity.setText(feedbackObject.getResponseQuantity());
-        Long responseAtMillis = Long.parseLong(feedbackObject.getResponseDate());
-        responseDate.setText(LabUtil.formatTimeStamp(responseAtMillis));
-    }
+                dispatchDateTv.setText(manifest.getDispatchDate());
+                dispatchTimeTv.setText(manifest.getDispatchTime());
+            }
 
-    private void setTranslatedStringFromResources(TextView tv, String identifier) {
-        int tvVal = LabUtil.getStringFromResources(identifier, this);
-        if (tvVal != 0) {
-            tv.setText(this.getString(tvVal));
-        } else {
-            tv.setText(identifier);
+            List<String> arrayList = convertToList(manifest.getSampleList());
+            ArrayAdapter<String> arrayAdapter = new
+                    ArrayAdapter<>(BaseManifestDetailsActivity.this, android.R.layout.simple_list_item_1,
+                    arrayList);
+            sampleList.setAdapter(arrayAdapter);
         }
     }
 
@@ -121,46 +131,31 @@ public class BaseManifestDetailsActivity extends SecuredActivity implements Base
         startActivityForResult(intent, Constants.REQUEST_CODE_GET_JSON);
     }
 
-    @Override
-    public void initializePresenter() {
-        presenter = new BaseOrderDetailsPresenter(this, new BaseOrderDetailsInteractor(), new BaseOrderDetailsModel(), client);
-    }
-
-
-    @Override
-    public void hideButtons() {
-        stockDistributionBtn.setVisibility(View.GONE);
-        outOfStockBtn.setVisibility(View.GONE);
-    }
-
     protected void setupViews() {
         toolbar = findViewById(R.id.collapsing_toolbar);
         tvTitle = findViewById(R.id.tvTitle);
-        condomBrand = findViewById(R.id.condom_brand);
-        condomType = findViewById(R.id.condom_type);
-        quantity = findViewById(R.id.condom_quantity);
-        requestDate = findViewById(R.id.request_date);
-        requesterName = findViewById(R.id.requester_name);
-        feedbackCondomBrand = findViewById(R.id.feedback_condom_brand);
-        feedbackCondomType = findViewById(R.id.feedback_condom_type);
-        feedbackQuantity = findViewById(R.id.feedback_condom_quantity);
-        responseDate = findViewById(R.id.response_date);
-        responseStatus = findViewById(R.id.response_status);
-        outOfStockBtn = findViewById(R.id.btn_out_of_stock);
-        stockDistributionBtn = findViewById(R.id.btn_stock_distribution);
-        tvRestockGroup = findViewById(R.id.tv_restock_group);
-        responseLayout = findViewById(R.id.response_details);
-        markAsReceivedBtn = findViewById(R.id.btn_mark_as_received);
+        batchNumberTv = findViewById(R.id.batch_number);
+        manifestTypeTv = findViewById(R.id.manifest_type);
+        destinationHubTv = findViewById(R.id.destination_hub);
+        edit = findViewById(R.id.edit);
+        dispatchBtn = findViewById(R.id.btn_dispatch);
+        sampleList = findViewById(R.id.sample_list);
 
-        stockDistributionBtn.setVisibility(View.GONE);
-        outOfStockBtn.setVisibility(View.GONE);
+        dispatchDateLayout = findViewById(R.id.dispatch_date_layout);
+        dispatchTimeLayout = findViewById(R.id.dispatch_time_layout);
 
-        outOfStockBtn.setOnClickListener(this);
-        stockDistributionBtn.setOnClickListener(this);
-        markAsReceivedBtn.setOnClickListener(this);
+        dispatchDateTv = findViewById(R.id.dispatch_date);
+        dispatchTimeTv = findViewById(R.id.dispatch_time);
 
+        dispatchBtn.setOnClickListener(this);
 
+        setDetailViewWithData(batchNumber);
         setUpActionBar();
+    }
+
+    @Override
+    protected ViewPager setupViewPager(ViewPager viewPager) {
+        return null;
     }
 
     private void setUpActionBar() {
@@ -178,51 +173,51 @@ public class BaseManifestDetailsActivity extends SecuredActivity implements Base
     @Override
     public void onClick(View view) {
         int id = view.getId();
-        if (id == R.id.btn_stock_distribution) {
-            startStockDistributionForm();
-        }
-        if (id == R.id.btn_mark_as_received) {
-            startReceivedForm();
+        if (id == R.id.btn_dispatch) {
+            dispatchManifest();
         }
     }
 
-    private void startStockDistributionForm() {
-        try {
-            String condomType = Utils.getValue(client, DBConstants.KEY.CONDOM_TYPE, false);
-            presenter.startForm(Constants.FORMS.CDP_CONDOM_DISTRIBUTION, null, condomType, null);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    @Override
+    protected void fetchProfileData() {
+
     }
 
-    private void startReceivedForm() {
-        try {
-            String condomType = Utils.getValue(client, DBConstants.KEY.CONDOM_TYPE, false);
-            presenter.startForm(Constants.FORMS.CDP_RECEIVE_CONDOM_FACILITY, null, condomType, requestedAtMillis);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+    public void dispatchManifest() {
     }
+
+    @Override
+    protected void initializePresenter() {
+        presenter = new BaseManifestDetailsPresenter(this, new BaseManifestDetailsModel(), new BaseManifestDetailsInteractor());
+        fetchProfileData();
+        updateDispatchBtn();
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == Constants.REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
             String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
-//            try {
-//                JSONObject jsonObject = new JSONObject(jsonString);
-//                String encounter_type = jsonObject.getString("encounter_type");
-//                if (encounter_type.equalsIgnoreCase(Constants.EVENT_TYPE.CDP_CONDOM_DISTRIBUTION_OUTSIDE)) {
-//                    presenter.saveForm(jsonString);
-//                    finish();
-//                }
-//                if (encounter_type.equalsIgnoreCase(Constants.EVENT_TYPE.CDP_RECEIVE_FROM_FACILITY)) {
-//                    presenter.saveMarkAsReceivedForm(jsonString);
-//                    finish();
-//                }
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
+            try {
+                presenter.saveForm(jsonString);
+            } catch (Exception e) {
+                Timber.e(e);
+            }
             startClientProcessing();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        new android.os.Handler().postDelayed(this::updateDispatchBtn, 500);
+    }
+
+    private void updateDispatchBtn() {
+        if (StringUtils.isNotBlank(LabDao.getDispatchDate(batchNumber))) {
+            dispatchBtn.setVisibility(View.GONE);
+            setDetailViewWithData(batchNumber);
         }
     }
 }
