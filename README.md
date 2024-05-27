@@ -1,4 +1,4 @@
 
-# opensrp-client-chw-cdp
-OpenSRP client chw starter files for the Condom Programming library
+# opensrp-client-chw-lab
+OpenSRP client chw starter files for the HIV LAB library
 
