@@ -48,6 +48,7 @@ public class BaseLabTestRequestDetailsActivity extends BaseProfileActivity imple
 
     protected String testSampleId;
 
+    protected Boolean provideResultsToClient;
 
     protected TextView headerTestResultDetails;
 
@@ -108,10 +109,11 @@ public class BaseLabTestRequestDetailsActivity extends BaseProfileActivity imple
 
     protected TestSample testSample;
 
-    public static void startProfileActivity(Activity activity, String baseEntityId, String testSampleId) {
+    public static void startProfileActivity(Activity activity, String baseEntityId, String testSampleId, Boolean provideResultsToClient) {
         Intent intent = new Intent(activity, BaseLabTestRequestDetailsActivity.class);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityId);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.TEST_SAMPLE_ID, testSampleId);
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.PROVIDE_RESULTS_TO_CLIENT, provideResultsToClient);
         activity.startActivity(intent);
     }
 
@@ -122,6 +124,7 @@ public class BaseLabTestRequestDetailsActivity extends BaseProfileActivity imple
         setSupportActionBar(toolbar);
         mBaseEntityId = getIntent().getStringExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID);
         testSampleId = getIntent().getStringExtra(Constants.ACTIVITY_PAYLOAD.TEST_SAMPLE_ID);
+        provideResultsToClient = getIntent().getBooleanExtra(Constants.ACTIVITY_PAYLOAD.PROVIDE_RESULTS_TO_CLIENT, false);
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -227,7 +230,11 @@ public class BaseLabTestRequestDetailsActivity extends BaseProfileActivity imple
             authorizedByTv.setText(testSample.getAuthorizedBy());
             testedDateTv.setText(testSample.getTestedDate());
             authorizedDateTv.setText(testSample.getAuthorizedDate());
-            testResultsTv.setText(String.format(getResources().getString(R.string.test_results_copies_per_ml), testSample.getResults()));
+            if (testSample.getSampleType().equalsIgnoreCase("hvl")) {
+                testResultsTv.setText(String.format(getResources().getString(R.string.test_results_copies_per_ml), testSample.getResults()));
+            } else {
+                testResultsTv.setText(testSample.getResults());
+            }
         } else if (testSample.getResults() != null &&
                 !testSample.getResults().isEmpty() &&
                 testSample.getResults().equalsIgnoreCase("rejected")
@@ -240,7 +247,10 @@ public class BaseLabTestRequestDetailsActivity extends BaseProfileActivity imple
             rejectedByTv.setText(testSample.getRejectedBy());
             contactInfoTv.setText(testSample.getRejectionContactInfo());
             testResultsTv.setText(testSample.getResults().toUpperCase(Locale.ROOT));
-        } else {
+        } else if (testSample.getResults() != null &&
+                !testSample.getResults().isEmpty() &&
+                testSample.getResults().equalsIgnoreCase("invalid")
+        ) {
             resultsLayout.setVisibility(View.VISIBLE);
             testResultsTv.setText(testSample.getResults().toUpperCase(Locale.ROOT));
         }
@@ -257,6 +267,8 @@ public class BaseLabTestRequestDetailsActivity extends BaseProfileActivity imple
                 recordSampleRequestResults(mBaseEntityId, testSampleId);
             else if (btnRecordFollowup.getText().toString().equals(getString(R.string.record_test_sample_collection)))
                 recordSampleRequestProcessing(mBaseEntityId, testSampleId);
+            else if (btnRecordFollowup.getText().toString().equals(getString(R.string.record_provision_of_results_to_clients)))
+                recordProvisionOfResultsToClient(mBaseEntityId, testSampleId);
         }
     }
 
@@ -268,6 +280,10 @@ public class BaseLabTestRequestDetailsActivity extends BaseProfileActivity imple
 
     }
 
+    public void recordProvisionOfResultsToClient(String baseEntityId, String testRequestSampleId) {
+
+    }
+
     @Override
     protected void initializePresenter() {
         showProgressBar(true);
@@ -275,8 +291,24 @@ public class BaseLabTestRequestDetailsActivity extends BaseProfileActivity imple
         fetchProfileData();
         profilePresenter.refreshProfileBottom();
 
-        List<TestSample> testSample = LabDao.getTestSamplesRequestsBySampleId(testSampleId);
-        if (testSample != null && !testSample.isEmpty() && StringUtils.isNotBlank(testSample.get(0).getResults())) {
+        List<TestSample> testSamples = LabDao.getTestSamplesRequestsBySampleId(testSampleId);
+        TestSample testSample = null;
+        if (!testSamples.isEmpty()) {
+            testSample = testSamples.get(0);
+        }
+
+
+        if (provideResultsToClient && testSample != null &&
+                StringUtils.isNotBlank(testSample.getResults()) &&
+                !testSample.getResults().equalsIgnoreCase("invalid") &&
+                !testSample.getResults().equalsIgnoreCase("rejected")
+        ) {
+            if (StringUtils.isNotBlank(testSample.getDateResultsProvidedToClient())) {
+                btnRecordFollowup.setVisibility(View.GONE);
+            } else {
+                btnRecordFollowup.setText(R.string.record_provision_of_results_to_clients);
+            }
+        } else if (testSample != null && StringUtils.isNotBlank(testSample.getResults())) {
             btnRecordFollowup.setVisibility(View.GONE);
         } else if (LabDao.isSampleUploaded(testSampleId)) {
             btnRecordFollowup.setText(R.string.record_test_sample_results);
@@ -286,6 +318,11 @@ public class BaseLabTestRequestDetailsActivity extends BaseProfileActivity imple
             btnRecordFollowup.setText(R.string.record_test_sample_collection);
         }
 
+        if (testSample != null && StringUtils.isNotBlank(testSample.getDateResultsProvidedToClient())) {
+            provisionOfResultsToClientsLayout.setVisibility(View.VISIBLE);
+            dateResultsProvidedToClientTv.setText(testSample.getDateResultsProvidedToClient());
+            timeResultsProvidedToClientTv.setText(testSample.getTimeResultsProvidedToClient());
+        }
 
     }
 

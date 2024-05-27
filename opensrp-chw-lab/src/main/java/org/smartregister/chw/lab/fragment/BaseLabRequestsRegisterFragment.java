@@ -165,7 +165,7 @@ public class BaseLabRequestsRegisterFragment extends BaseRegisterFragment implem
     }
 
     protected void openProfile(String baseEntityId, String testSampleId) {
-        BaseLabTestRequestDetailsActivity.startProfileActivity(getActivity(), baseEntityId, testSampleId);
+        BaseLabTestRequestDetailsActivity.startProfileActivity(getActivity(), baseEntityId, testSampleId, false);
     }
 
     protected void openFollowUpVisit(String baseEntityId) {

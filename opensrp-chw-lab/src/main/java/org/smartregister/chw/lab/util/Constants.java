@@ -61,6 +61,7 @@ public interface Constants {
         String LAB_FORM_NAME = "LAB_FORM_NAME";
         String CLIENT = "CLIENT";
         String MANIFEST_TYPE = "MANIFEST_TYPE";
+        String PROVIDE_RESULTS_TO_CLIENT = "PROVIDE_RESULTS_TO_CLIENT";
     }
 
     interface ACTIVITY_PAYLOAD_TYPE {

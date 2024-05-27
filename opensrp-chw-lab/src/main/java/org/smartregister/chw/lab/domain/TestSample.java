@@ -9,6 +9,9 @@ public class TestSample {
 
     String sampleCollectionDate;
 
+
+    String sampleCollectionTime;
+
     String sampleType;
 
     String sampleProcessed;
@@ -41,6 +44,10 @@ public class TestSample {
 
     String rejectionContactInfo;
 
+    String dateResultsProvidedToClient;
+
+    String timeResultsProvidedToClient;
+
     public String getPatientId() {
         return patientId;
     }
@@ -72,6 +79,14 @@ public class TestSample {
 
     public void setSampleCollectionDate(String sampleCollectionDate) {
         this.sampleCollectionDate = sampleCollectionDate;
+    }
+
+    public String getSampleCollectionTime() {
+        return sampleCollectionTime;
+    }
+
+    public void setSampleCollectionTime(String sampleCollectionTime) {
+        this.sampleCollectionTime = sampleCollectionTime;
     }
 
     public String getSampleType() {
@@ -200,5 +215,21 @@ public class TestSample {
 
     public void setRejectionContactInfo(String rejectionContactInfo) {
         this.rejectionContactInfo = rejectionContactInfo;
+    }
+
+    public String getDateResultsProvidedToClient() {
+        return dateResultsProvidedToClient;
+    }
+
+    public void setDateResultsProvidedToClient(String dateResultsProvidedToClient) {
+        this.dateResultsProvidedToClient = dateResultsProvidedToClient;
+    }
+
+    public String getTimeResultsProvidedToClient() {
+        return timeResultsProvidedToClient;
+    }
+
+    public void setTimeResultsProvidedToClient(String timeResultsProvidedToClient) {
+        this.timeResultsProvidedToClient = timeResultsProvidedToClient;
     }
 }

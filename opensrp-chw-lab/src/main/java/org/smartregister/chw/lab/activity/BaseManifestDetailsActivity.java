@@ -57,6 +57,8 @@ public class BaseManifestDetailsActivity extends BaseProfileActivity implements 
 
     protected String batchNumber;
 
+    protected Manifest manifest;
+
 
     public static void startProfileActivity(Activity activity, String batchNumber) {
         Intent intent = new Intent(activity, BaseLabTestRequestDetailsActivity.class);
@@ -101,7 +103,7 @@ public class BaseManifestDetailsActivity extends BaseProfileActivity implements 
 
     @Override
     public void setDetailViewWithData(String batchNumber) {
-        Manifest manifest = LabDao.getManifestByBatchNumber(batchNumber);
+        manifest = LabDao.getManifestByBatchNumber(batchNumber);
 
         if (manifest != null) {
             batchNumberTv.setText(batchNumber);

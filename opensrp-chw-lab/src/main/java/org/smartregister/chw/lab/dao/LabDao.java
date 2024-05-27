@@ -22,6 +22,7 @@ public class LabDao extends AbstractDao {
         testSample.setSampleRequestDate(getCursorValue(cursor, "sample_request_date", ""));
         testSample.setTypeOfSample(getCursorValue(cursor, "type_of_sample", ""));
         testSample.setSampleCollectionDate(getCursorValue(cursor, "sample_collection_date", ""));
+        testSample.setSampleCollectionTime(getCursorValue(cursor, "sample_collection_time", ""));
         testSample.setSeparationDoneAtTheFacility(getCursorValue(cursor, "separation_done_at_the_facility", ""));
         testSample.setSampleSeparationDate(getCursorValue(cursor, "sample_separation_date", ""));
         testSample.setSampleSeparationTime(getCursorValue(cursor, "sample_separation_time", ""));
@@ -35,7 +36,26 @@ public class LabDao extends AbstractDao {
         testSample.setRejectedBy(getCursorValue(cursor, "rejected_by", ""));
         testSample.setRejectionContactInfo(getCursorValue(cursor, "rejection_contact_info", ""));
 
+        testSample.setDateResultsProvidedToClient(getCursorValue(cursor, "date_results_provided_to_client", ""));
+        testSample.setTimeResultsProvidedToClient(getCursorValue(cursor, "time_results_provided_to_client", ""));
+
         return testSample;
+    };
+
+
+    private static final DataMap<Manifest> manifestDataMap = cursor -> {
+        Manifest manifest = new Manifest();
+
+        manifest.setBatchNumber(getCursorValue(cursor, "batch_number", ""));
+        manifest.setManifestType(getCursorValue(cursor, "manifest_type", ""));
+        manifest.setDestinationHubName(getCursorValue(cursor, "destination_hub_name", ""));
+        manifest.setDestinationHubUuid(getCursorValue(cursor, "destination_hub_uuid", ""));
+        manifest.setDispatchDate(getCursorValue(cursor, "dispatch_date", ""));
+        manifest.setDispatchTime(getCursorValue(cursor, "dispatch_time", ""));
+        manifest.setSampleList(getCursorValue(cursor, "samples_list", ""));
+
+
+        return manifest;
     };
 
 
@@ -67,8 +87,8 @@ public class LabDao extends AbstractDao {
         DataMap<String> dataMap = cursor -> getCursorValue(cursor, "destination_hub_name");
         List<String> res = readData(sql, dataMap);
 
-        if (res != null && !res.isEmpty() && res.get(0) != null) {
-            return res.get(0);
+        if (res != null && !res.isEmpty()) {
+            return res.get(res.size() - 1);
         }
         return "";
     }
@@ -90,8 +110,8 @@ public class LabDao extends AbstractDao {
         DataMap<String> dataMap = cursor -> getCursorValue(cursor, "destination_hub_uuid");
         List<String> res = readData(sql, dataMap);
 
-        if (res != null && !res.isEmpty() && res.get(0) != null) {
-            return res.get(0);
+        if (res != null && !res.isEmpty()) {
+            return res.get(res.size() - 1);
         }
         return "";
     }
@@ -112,8 +132,8 @@ public class LabDao extends AbstractDao {
                                       String destinationHub,
                                       String samplesList) {
         String sql = "INSERT INTO " + Constants.TABLES.LAB_MANIFESTS +
-                "    (base_entity_id, batch_number, manifest_type, destination_hub_name, samples_list) " +
-                "         VALUES ('" + batchNumber + "', '" + batchNumber + "', '" + manifestType + "', '" + destinationHub + "', '" + samplesList + "')" +
+                "    (id,base_entity_id, batch_number, manifest_type, destination_hub_name, samples_list) " +
+                "         VALUES ('" + batchNumber + "', '" + batchNumber + "', '" + batchNumber + "', '" + manifestType + "', '" + destinationHub + "', '" + samplesList + "')" +
                 "       ON CONFLICT (id) DO UPDATE" +
                 "       SET batch_number = '" + batchNumber + "'," +
                 "           manifest_type = '" + manifestType + "', " +
@@ -203,26 +223,19 @@ public class LabDao extends AbstractDao {
     public static Manifest getManifestByBatchNumber(String batchNumber) {
         String sql = "SELECT * FROM " + Constants.TABLES.LAB_MANIFESTS + " ts " + "WHERE batch_number = '" + batchNumber + "'";
 
-
-        DataMap<Manifest> dataMap = cursor -> {
-            Manifest manifest = new Manifest();
-
-            manifest.setBatchNumber(getCursorValue(cursor, "batch_number", ""));
-            manifest.setManifestType(getCursorValue(cursor, "manifest_type", ""));
-            manifest.setDestinationHubName(getCursorValue(cursor, "destination_hub_name", ""));
-            manifest.setDestinationHubUuid(getCursorValue(cursor, "destination_hub_uuid", ""));
-            manifest.setDispatchDate(getCursorValue(cursor, "dispatch_date", ""));
-            manifest.setDispatchTime(getCursorValue(cursor, "dispatch_time", ""));
-            manifest.setSampleList(getCursorValue(cursor, "samples_list", ""));
-
-
-            return manifest;
-        };
-
-        List<Manifest> res = readData(sql, dataMap);
+        List<Manifest> res = readData(sql, manifestDataMap);
         if (res != null && !res.isEmpty())
             return res.get(0);
 
+        return null;
+    }
+
+
+    public static Manifest getManifestByTestSampleId(String testSampleId) {
+        String sql = "SELECT * FROM " + Constants.TABLES.LAB_MANIFESTS + " ts " + "WHERE samples_list LIKE '%" + testSampleId + "%'";
+        List<Manifest> res = readData(sql, manifestDataMap);
+        if (res != null && !res.isEmpty())
+            return res.get(0);
         return null;
     }
 
@@ -259,6 +272,11 @@ public class LabDao extends AbstractDao {
         return readData(sql, dataMap);
     }
 
+    public static List<TestSample> getTestSamplesRequestsBySampleTypeAndPatientId(String sampleType, String patientId) {
+        String sql = "SELECT * FROM " + Constants.TABLES.LAB_TEST_REQUESTS + " ts " + "WHERE sample_type = '" + sampleType + "' AND patient_id = '" + patientId + "' ";
+        return readData(sql, dataMap);
+    }
+
 
     public static List<TestSample> getTestSamplesRequestsNotInManifests(String sampleType) {
         String sql = "SELECT * FROM " + Constants.TABLES.LAB_TEST_REQUESTS + " ts " + "WHERE sample_type = '" + sampleType + "' AND sample_processed = 'true' AND " +
@@ -269,8 +287,6 @@ public class LabDao extends AbstractDao {
 
         return readData(sql, dataMap);
     }
-
-
 
 
     public static boolean isSampleUploaded(String sampleId) {
