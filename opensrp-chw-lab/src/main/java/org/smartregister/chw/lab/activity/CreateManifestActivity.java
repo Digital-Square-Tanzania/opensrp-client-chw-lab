@@ -43,6 +43,9 @@ public class CreateManifestActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_create_manifest);
 
+        View closeView = findViewById(R.id.close);
+        closeView.setOnClickListener(view -> finish());
+
         View selectAllView = findViewById(R.id.select_all);
 
         TextView textView = findViewById(R.id.customFontTextViewName);

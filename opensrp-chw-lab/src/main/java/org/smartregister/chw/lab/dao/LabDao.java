@@ -130,15 +130,17 @@ public class LabDao extends AbstractDao {
     public static void insertManifest(String batchNumber,
                                       String manifestType,
                                       String destinationHub,
-                                      String samplesList) {
+                                      String samplesList,
+                                      String lastInteractedWith) {
         String sql = "INSERT INTO " + Constants.TABLES.LAB_MANIFESTS +
-                "    (id,base_entity_id, batch_number, manifest_type, destination_hub_name, samples_list) " +
-                "         VALUES ('" + batchNumber + "', '" + batchNumber + "', '" + batchNumber + "', '" + manifestType + "', '" + destinationHub + "', '" + samplesList + "')" +
+                "    (id,base_entity_id, batch_number, manifest_type, destination_hub_name, samples_list, last_interacted_with) " +
+                "         VALUES ('" + batchNumber + "', '" + batchNumber + "', '" + batchNumber + "', '" + manifestType + "', '" + destinationHub + "', '" + samplesList + "', '" + lastInteractedWith + "')" +
                 "       ON CONFLICT (id) DO UPDATE" +
                 "       SET batch_number = '" + batchNumber + "'," +
                 "           manifest_type = '" + manifestType + "', " +
                 "           destination_hub_name = '" + destinationHub + "', " +
-                "           samples_list = '" + samplesList + "'" +
+                "           samples_list = '" + samplesList + "', " +
+                "           last_interacted_with = '" + lastInteractedWith + "'" +
                 "       ";
         updateDB(sql);
     }

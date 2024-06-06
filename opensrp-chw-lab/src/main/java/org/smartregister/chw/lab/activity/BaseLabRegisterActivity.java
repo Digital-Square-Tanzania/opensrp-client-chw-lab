@@ -1,5 +1,9 @@
 package org.smartregister.chw.lab.activity;
 
+import static com.vijay.jsonwizard.constants.JsonFormConstants.FIELDS;
+import static com.vijay.jsonwizard.constants.JsonFormConstants.STEP1;
+import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
+
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -15,22 +19,24 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
 import org.smartregister.Context;
-import org.smartregister.chw.lab.fragment.BaseLabManifestsRegisterFragment;
-import org.smartregister.lab.R;
 import org.smartregister.chw.lab.LabLibrary;
 import org.smartregister.chw.lab.contract.BaseLabRegisterContract;
+import org.smartregister.chw.lab.fragment.BaseLabManifestsRegisterFragment;
 import org.smartregister.chw.lab.fragment.BaseLabRequestsRegisterFragment;
 import org.smartregister.chw.lab.interactor.BaseLabRegisterInteractor;
 import org.smartregister.chw.lab.listener.BaseLabBottomNavigationListener;
 import org.smartregister.chw.lab.model.BaseLabRegisterModel;
 import org.smartregister.chw.lab.pojo.RegisterParams;
 import org.smartregister.chw.lab.presenter.BaseLabRegisterPresenter;
+import org.smartregister.chw.lab.util.Constants;
 import org.smartregister.chw.lab.util.LabJsonFormUtils;
 import org.smartregister.chw.lab.util.LabUtil;
-import org.smartregister.chw.lab.util.Constants;
+import org.smartregister.domain.Location;
 import org.smartregister.helper.BottomNavigationHelper;
+import org.smartregister.lab.R;
 import org.smartregister.listener.BottomNavigationListener;
 import org.smartregister.repository.BaseRepository;
+import org.smartregister.repository.LocationRepository;
 import org.smartregister.util.Utils;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.fragment.BaseRegisterFragment;
@@ -207,6 +213,19 @@ public class BaseLabRegisterActivity extends BaseRegisterActivity implements Bas
                     registerParam.setFormTag(LabJsonFormUtils.formTag(LabLibrary.getInstance().context().allSharedPreferences()));
                     showProgressDialog(R.string.saving_dialog_title);
                     presenter().saveForm(jsonString, registerParam);
+                } else if (encounter_type.equalsIgnoreCase(Constants.EVENT_TYPE.LAB_SET_MANIFEST_SETTINGS)) {
+                    JSONArray fields = jsonObject.getJSONObject(STEP1).getJSONArray(FIELDS);
+
+                    JSONObject nameOfHfJsonObject = org.smartregister.util.JsonFormUtils.getFieldJSONObject(fields, "name_of_hf");
+                    String nameOfHf = new JSONArray(nameOfHfJsonObject.getString(VALUE)).getJSONObject(0).getString("key");
+
+                    LocationRepository locationRepository = new LocationRepository();
+                    Location location = locationRepository.getLocationByName(nameOfHf);
+
+                    JSONObject locationId = org.smartregister.util.JsonFormUtils.getFieldJSONObject(fields, "location_id");
+                    locationId.put(VALUE, location.getId());
+
+                    presenter().saveForm(jsonObject.toString());
                 } else {
                     presenter().saveForm(jsonString);
                 }

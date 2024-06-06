@@ -146,12 +146,6 @@ public class BaseLabTestRequestDetailsActivity extends BaseProfileActivity imple
     }
 
     @Override
-    protected void onResumption() {
-        super.onResumption();
-        new android.os.Handler().postDelayed(this::initializePresenter, 1000);
-    }
-
-    @Override
     protected void setupViews() {
         imageView = findViewById(R.id.imageview_profile);
         headerTestResultDetails = findViewById(R.id.headerTestResultDetails);
@@ -374,13 +368,19 @@ public class BaseLabTestRequestDetailsActivity extends BaseProfileActivity imple
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == Constants.REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
+            btnRecordFollowup.setVisibility(View.GONE);
             profilePresenter.saveForm(data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON));
+            new android.os.Handler().postDelayed(() -> {
+                setupViews();
+                initializePresenter();
+            }, 500);
+
         }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        new Handler(Looper.getMainLooper()).postDelayed(this::setupViews, 500);
+        new android.os.Handler().postDelayed(this::initializePresenter, 1000);
     }
 }
