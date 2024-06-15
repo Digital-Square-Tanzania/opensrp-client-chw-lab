@@ -26,7 +26,7 @@ public class TestSampleAdapter extends ArrayAdapter<TestSample> {
         super(context, R.layout.view_test_sample_item, data);
         this.dataSet = data;
         this.mContext = context;
-
+        selectedSamples.clear();
     }
 
     @Override

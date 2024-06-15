@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONArray;
 import org.smartregister.chw.lab.LabLibrary;
 import org.smartregister.chw.lab.adapter.TestSampleAdapter;
 import org.smartregister.chw.lab.dao.LabDao;
@@ -95,7 +96,15 @@ public class CreateManifestActivity extends AppCompatActivity {
 
         baseEvent.addObs(new Obs().withFormSubmissionField(Constants.JSON_FORM_KEY.DESTINATION_HUB_UUID).withValue(LabDao.getDestinationHubUuid()).withFieldCode(Constants.JSON_FORM_KEY.DESTINATION_HUB_UUID).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<>()));
 
-        baseEvent.addObs(new Obs().withFormSubmissionField(Constants.JSON_FORM_KEY.SAMPLES_LIST).withValue((new LinkedHashSet<>(selectedSamples)).toString()).withFieldCode(Constants.JSON_FORM_KEY.SAMPLES_LIST).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<>()));
+        (new LinkedHashSet<>(selectedSamples)).toString();
+
+        JSONArray selectedSamplesString = new JSONArray();
+
+        for(String sample : selectedSamples){
+            selectedSamplesString.put(sample);
+        }
+
+        baseEvent.addObs(new Obs().withFormSubmissionField(Constants.JSON_FORM_KEY.SAMPLES_LIST).withValue((selectedSamplesString.toString())).withFieldCode(Constants.JSON_FORM_KEY.SAMPLES_LIST).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<>()));
 
         persistEvent(baseEvent);
         LabUtil.startClientProcessing();

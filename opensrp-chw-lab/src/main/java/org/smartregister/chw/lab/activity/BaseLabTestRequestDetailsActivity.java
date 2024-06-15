@@ -1,13 +1,13 @@
 package org.smartregister.chw.lab.activity;
 
+import static org.smartregister.chw.lab.util.Constants.ENCOUNTER_TYPE;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -35,6 +35,7 @@ import java.util.List;
 import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import timber.log.Timber;
 
 
 public class BaseLabTestRequestDetailsActivity extends BaseProfileActivity implements BaseLabTestRequestsProfileContract.View, BaseLabTestRequestsProfileContract.InteractorCallBack {
@@ -369,7 +370,21 @@ public class BaseLabTestRequestDetailsActivity extends BaseProfileActivity imple
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == Constants.REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
             btnRecordFollowup.setVisibility(View.GONE);
-            profilePresenter.saveForm(data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON));
+
+            String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
+            JSONObject formJson;
+            String encounter_type = "";
+            try {
+                formJson = new JSONObject(jsonString);
+                encounter_type = formJson.getString(ENCOUNTER_TYPE);
+            } catch (Exception e) {
+                Timber.e(e);
+            }
+
+            if (!encounter_type.equalsIgnoreCase("HEI HIV Test Results")) {
+                profilePresenter.saveForm(data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON));
+            }
+
             new android.os.Handler().postDelayed(() -> {
                 setupViews();
                 initializePresenter();

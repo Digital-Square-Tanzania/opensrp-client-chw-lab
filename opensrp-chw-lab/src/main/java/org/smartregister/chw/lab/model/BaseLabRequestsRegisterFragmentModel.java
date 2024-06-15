@@ -55,7 +55,7 @@ public class BaseLabRequestsRegisterFragmentModel implements BaseLabRegisterFrag
         Set<String> columnList = new HashSet<>();
         columnList.add(tableName + "." + DBConstants.KEY.BASE_ENTITY_ID);
         columnList.add(tableName + "." + DBConstants.KEY.ENTITY_ID);
-        columnList.add(" CASE WHEN printf(\"%.0f\", sample_id) IN (SELECT printf(\"%.0f\", value) FROM ec_lab_manifests, json_each(ec_lab_manifests.samples_list) WHERE ec_lab_manifests.dispatch_date IS NOT NULL) THEN 'Yes' ELSE 'No' END AS dispatched ");
+        columnList.add(" CASE WHEN sample_id IN (SELECT value FROM ec_lab_manifests, json_each(ec_lab_manifests.samples_list) WHERE ec_lab_manifests.dispatch_date IS NOT NULL) THEN 'Yes' ELSE 'No' END AS dispatched ");
         columnList.add(Constants.TABLES.LAB_TEST_REQUESTS + "." + DBConstants.KEY.RELATIONAL_ID);
         columnList.add(Constants.TABLES.LAB_TEST_REQUESTS + "." + DBConstants.KEY.SAMPLE_REQUEST_DATE);
         columnList.add(Constants.TABLES.LAB_TEST_REQUESTS + "." + DBConstants.KEY.SAMPLE_ID);
