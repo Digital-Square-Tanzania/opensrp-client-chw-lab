@@ -233,7 +233,7 @@ public class LabUtil {
             String[] attributesArray = attribute.split(",");
             for (String attributeName : attributesArray) {
                 if (attributeName.trim().startsWith("HFR Code:")) {
-                    return attributeName.trim().substring(9).trim().replace("-","");
+                    return attributeName.trim();
                 }
             }
         }
@@ -259,6 +259,6 @@ public class LabUtil {
         String formattedMinutes = String.format(Locale.getDefault(),"%05d", minutes);
 
         // Generate the number in the specified format
-        return getHfrCode()+formattedYear + formattedMonth + formattedMinutes;
+        return getHfrCode().substring(9).trim().replace("-","")+formattedYear + formattedMonth + formattedMinutes;
     }
 }

@@ -98,6 +98,8 @@ public interface Constants {
         String DESTINATION_HUB_NAME = "destination_hub_name";
 
         String DESTINATION_HUB_UUID = "destination_hub_uuid";
+
+        String SOURCE_FACILITY = "source_facility";
     }
 
     interface SAMPLE_TYPES {
