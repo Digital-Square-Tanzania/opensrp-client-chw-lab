@@ -233,7 +233,20 @@ public class LabUtil {
             String[] attributesArray = attribute.split(",");
             for (String attributeName : attributesArray) {
                 if (attributeName.trim().startsWith("HFR Code:")) {
-                    return attributeName.trim();
+                    return attributeName.trim().substring(9).trim().replace("-","");
+                }
+            }
+        }
+        return "";
+    }
+
+    public static String getFacilityHfrCode() {
+        String attribute = LabLibrary.getInstance().context().allSharedPreferences().fetchUserLocationAttribute();
+        if (attribute != null) {
+            String[] attributesArray = attribute.split(",");
+            for (String attributeName : attributesArray) {
+                if (attributeName.trim().startsWith("HFR Code:")) {
+                    return attributeName.trim().substring(9).trim();
                 }
             }
         }
@@ -259,6 +272,6 @@ public class LabUtil {
         String formattedMinutes = String.format(Locale.getDefault(),"%05d", minutes);
 
         // Generate the number in the specified format
-        return getHfrCode().substring(9).trim().replace("-","")+formattedYear + formattedMonth + formattedMinutes;
+        return getHfrCode()+formattedYear + formattedMonth + formattedMinutes;
     }
 }

@@ -98,7 +98,7 @@ public class CreateManifestActivity extends AppCompatActivity {
 
         baseEvent.addObs(new Obs().withFormSubmissionField(Constants.JSON_FORM_KEY.DESTINATION_HUB_UUID).withValue(LabDao.getDestinationHubUuid()).withFieldCode(Constants.JSON_FORM_KEY.DESTINATION_HUB_UUID).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<>()));
 
-        baseEvent.addObs(new Obs().withFormSubmissionField(Constants.JSON_FORM_KEY.SOURCE_FACILITY).withValue(LabUtil.getHfrCode()).withFieldCode(Constants.JSON_FORM_KEY.SOURCE_FACILITY).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<>()));
+        baseEvent.addObs(new Obs().withFormSubmissionField(Constants.JSON_FORM_KEY.SOURCE_FACILITY).withValue(LabUtil.getFacilityHfrCode()).withFieldCode(Constants.JSON_FORM_KEY.SOURCE_FACILITY).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<>()));
 
         (new LinkedHashSet<>(selectedSamples)).toString();
 
