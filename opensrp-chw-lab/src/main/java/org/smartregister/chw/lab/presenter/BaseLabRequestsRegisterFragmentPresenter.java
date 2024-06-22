@@ -39,7 +39,7 @@ public class BaseLabRequestsRegisterFragmentPresenter implements BaseLabRegister
 
     @Override
     public String getMainCondition() {
-        return "is_closed = 0";
+        return " patient_id <> '' AND entity_id <>'' AND is_closed = 0";
     }
 
     @Override
@@ -107,12 +107,12 @@ public class BaseLabRequestsRegisterFragmentPresenter implements BaseLabRegister
 
     @Override
     public String getTestSamplesWithResultsQuery() {
-        return Constants.TABLES.LAB_TEST_REQUESTS + "." + DBConstants.KEY.RESULTS + " IS NOT NULL";
+        return Constants.TABLES.LAB_TEST_REQUESTS + "." + DBConstants.KEY.RESULTS + " IS NOT NULL AND " + Constants.TABLES.LAB_TEST_REQUESTS + "." + DBConstants.KEY.PATIENT_ID + " IS NOT NULL";
     }
 
     @Override
     public String getTestSamplesWithNoResultsQuery() {
-        return Constants.TABLES.LAB_TEST_REQUESTS + "." + DBConstants.KEY.RESULTS + " IS NULL";
+        return Constants.TABLES.LAB_TEST_REQUESTS + "." + DBConstants.KEY.RESULTS + " IS NULL AND " + Constants.TABLES.LAB_TEST_REQUESTS + "." + DBConstants.KEY.PATIENT_ID + " IS NOT NULL";
     }
 
     @Override
