@@ -252,26 +252,4 @@ public class LabUtil {
         }
         return "";
     }
-
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public static String generateManifestId() {
-        // Get current date and time
-        LocalDateTime now = LocalDateTime.now();
-
-        // Extract year, month, and minutes
-        int year = now.getYear() % 100; // Last two digits of the year
-        int month = now.getMonthValue();
-        int minutes = now.getMinute() + now.getHour() * 60; // Minutes since midnight
-
-        // Format year and month with leading zeros if necessary
-        String formattedYear = String.format(Locale.getDefault(),"%02d", year);
-        String formattedMonth = String.format(Locale.getDefault(),"%02d", month);
-
-        // Format minutes with leading zeros if necessary
-        String formattedMinutes = String.format(Locale.getDefault(),"%05d", minutes);
-
-        // Generate the number in the specified format
-        return getHfrCode()+formattedYear + formattedMonth + formattedMinutes;
-    }
 }

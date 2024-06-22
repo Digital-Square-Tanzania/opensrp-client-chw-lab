@@ -127,7 +127,7 @@ public class BaseLabRegisterActivity extends BaseRegisterActivity implements Bas
             try {
                 JSONObject jsonObject = new JSONObject(jsonString);
                 String encounter_type = jsonObject.getString("encounter_type");
-                if (encounter_type.equalsIgnoreCase(Constants.EVENT_TYPE.LAB_TEST_REQUEST_REGISTRATION)) {
+                if (encounter_type.equalsIgnoreCase(Constants.EVENT_TYPE.LAB_HVL_SAMPLE_COLLECTION)) {
                     RegisterParams registerParam = new RegisterParams();
                     registerParam.setEditMode(false);
                     registerParam.setFormTag(LabJsonFormUtils.formTag(LabLibrary.getInstance().context().allSharedPreferences()));
@@ -207,12 +207,8 @@ public class BaseLabRegisterActivity extends BaseRegisterActivity implements Bas
             try {
                 JSONObject jsonObject = new JSONObject(jsonString);
                 String encounter_type = jsonObject.getString("encounter_type");
-                if (encounter_type.equalsIgnoreCase(Constants.EVENT_TYPE.LAB_TEST_REQUEST_REGISTRATION)) {
-                    RegisterParams registerParam = new RegisterParams();
-                    registerParam.setEditMode(false);
-                    registerParam.setFormTag(LabJsonFormUtils.formTag(LabLibrary.getInstance().context().allSharedPreferences()));
-                    showProgressDialog(R.string.saving_dialog_title);
-                    presenter().saveForm(jsonString, registerParam);
+                if (encounter_type.equalsIgnoreCase(Constants.EVENT_TYPE.LAB_HVL_SAMPLE_COLLECTION)) {
+                    presenter().saveForm(jsonString);
                 } else if (encounter_type.equalsIgnoreCase(Constants.EVENT_TYPE.LAB_SET_MANIFEST_SETTINGS)) {
                     JSONArray fields = jsonObject.getJSONObject(STEP1).getJSONArray(FIELDS);
 
@@ -230,7 +226,7 @@ public class BaseLabRegisterActivity extends BaseRegisterActivity implements Bas
                     presenter().saveForm(jsonString);
                 }
             } catch (JSONException e) {
-                e.printStackTrace();
+                Timber.e(e);
             }
             startClientProcessing();
         }

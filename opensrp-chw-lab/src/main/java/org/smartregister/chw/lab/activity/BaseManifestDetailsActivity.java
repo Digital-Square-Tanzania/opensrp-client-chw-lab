@@ -8,12 +8,14 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
@@ -123,7 +125,22 @@ public class BaseManifestDetailsActivity extends BaseProfileActivity implements 
                     ArrayAdapter<>(BaseManifestDetailsActivity.this, android.R.layout.simple_list_item_1,
                     arrayList);
             sampleList.setAdapter(arrayAdapter);
+
+            // Set an item click listener on the ListView
+            sampleList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    // Get the clicked item
+                    String clickedItem = arrayList.get(position);
+
+                    openTestRequest(clickedItem);
+                }
+            });
         }
+    }
+
+    protected void openTestRequest(String sampleId){
+        //To be implemented
     }
 
     @Override

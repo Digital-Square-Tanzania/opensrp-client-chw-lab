@@ -16,6 +16,7 @@ public class LabDao extends AbstractDao {
 
         testSample.setSampleId(getCursorValue(cursor, "sample_id", ""));
         testSample.setPatientId(getCursorValue(cursor, "patient_id", ""));
+        testSample.setEntityId(getCursorValue(cursor, "entity_id", ""));
         testSample.setSampleProcessed(getCursorValue(cursor, "sample_processed", ""));
         testSample.setSampleType(getCursorValue(cursor, "sample_type", ""));
         testSample.setResults(getCursorValue(cursor, "results", ""));

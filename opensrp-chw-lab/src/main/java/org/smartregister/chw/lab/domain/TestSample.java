@@ -1,6 +1,8 @@
 package org.smartregister.chw.lab.domain;
 
 public class TestSample {
+    String entityId;
+
     String patientId;
 
     String sampleId;
@@ -47,6 +49,14 @@ public class TestSample {
     String dateResultsProvidedToClient;
 
     String timeResultsProvidedToClient;
+
+    public String getEntityId() {
+        return entityId;
+    }
+
+    public void setEntityId(String entityId) {
+        this.entityId = entityId;
+    }
 
     public String getPatientId() {
         return patientId;

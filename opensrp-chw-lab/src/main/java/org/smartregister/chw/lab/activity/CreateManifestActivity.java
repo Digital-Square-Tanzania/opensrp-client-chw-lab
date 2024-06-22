@@ -1,6 +1,5 @@
 package org.smartregister.chw.lab.activity;
 
-import static org.smartregister.chw.lab.util.LabUtil.generateManifestId;
 import static org.smartregister.chw.lab.util.LabUtil.persistEvent;
 import static org.smartregister.util.JsonFormUtils.generateRandomUUIDString;
 
@@ -22,10 +21,8 @@ import org.smartregister.chw.lab.util.Constants;
 import org.smartregister.chw.lab.util.LabUtil;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
-import org.smartregister.domain.Location;
 import org.smartregister.lab.R;
 import org.smartregister.repository.AllSharedPreferences;
-import org.smartregister.repository.LocationRepository;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,7 +30,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.UUID;
 
-public class CreateManifestActivity extends AppCompatActivity {
+public abstract class CreateManifestActivity extends AppCompatActivity {
     public static List<String> selectedSamples = new ArrayList<>();
     protected String manifestType;
 
@@ -100,11 +97,15 @@ public class CreateManifestActivity extends AppCompatActivity {
 
         baseEvent.addObs(new Obs().withFormSubmissionField(Constants.JSON_FORM_KEY.SOURCE_FACILITY).withValue(LabUtil.getFacilityHfrCode()).withFieldCode(Constants.JSON_FORM_KEY.SOURCE_FACILITY).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<>()));
 
-        (new LinkedHashSet<>(selectedSamples)).toString();
+        // Using a HashSet to store unique strings
+        LinkedHashSet<String> uniqueStrings = new LinkedHashSet<>(selectedSamples);
+
+        // Converting the Set back to a List if needed
+        List<String> uniqueList = new ArrayList<>(uniqueStrings);
 
         JSONArray selectedSamplesString = new JSONArray();
 
-        for(String sample : selectedSamples){
+        for (String sample : uniqueList) {
             selectedSamplesString.put(sample);
         }
 
@@ -114,4 +115,6 @@ public class CreateManifestActivity extends AppCompatActivity {
         LabUtil.startClientProcessing();
         finish();
     }
+
+    public abstract String generateManifestId();
 }
