@@ -16,6 +16,8 @@ public interface Constants {
     interface EVENT_TYPE {
         String LAB_HVL_SAMPLE_COLLECTION = "Lab HVL Sample Collection";
 
+        String LAB_HEID_SAMPLE_COLLECTION = "HEI DNA PCR Sample Collection";
+
         String LAB_MANIFEST_GENERATION = "LAB Manifest Generation";
 
         String LAB_MANIFEST_DISPATCH = "LAB Manifest Dispatch";
