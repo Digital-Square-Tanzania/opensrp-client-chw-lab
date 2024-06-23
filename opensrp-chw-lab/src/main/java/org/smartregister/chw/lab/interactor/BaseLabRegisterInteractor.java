@@ -1,32 +1,19 @@
 package org.smartregister.chw.lab.interactor;
 
+import static org.smartregister.chw.lab.util.LabUtil.getUniqueIdRepository;
+
+import androidx.annotation.VisibleForTesting;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.jetbrains.annotations.NotNull;
 import org.smartregister.chw.lab.LabLibrary;
 import org.smartregister.chw.lab.contract.BaseLabRegisterContract;
-import org.smartregister.chw.lab.pojo.CdpOutletEventClient;
-import org.smartregister.chw.lab.pojo.RegisterParams;
 import org.smartregister.chw.lab.util.AppExecutors;
 import org.smartregister.chw.lab.util.LabUtil;
-import org.smartregister.clientandeventmodel.Client;
-import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.UniqueId;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.sync.helper.ECSyncHelper;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.VisibleForTesting;
-import timber.log.Timber;
-
-import static org.smartregister.chw.lab.util.LabUtil.addEvent;
-import static org.smartregister.chw.lab.util.LabUtil.getClientProcessorForJava;
-import static org.smartregister.chw.lab.util.LabUtil.getUniqueIdRepository;
-import static org.smartregister.chw.lab.util.LabUtil.updateOpenSRPId;
 
 public class BaseLabRegisterInteractor implements BaseLabRegisterContract.Interactor {
 
@@ -70,44 +57,6 @@ public class BaseLabRegisterInteractor implements BaseLabRegisterContract.Intera
         };
 
         appExecutors.diskIO().execute(runnable);
-    }
-
-    public void saveRegistration(final List<CdpOutletEventClient> cdpOutletEventClientList, final String jsonString,
-                                 final RegisterParams registerParams, final BaseLabRegisterContract.InteractorCallBack callBack) {
-        Runnable runnable = () -> {
-            saveRegistration(cdpOutletEventClientList, jsonString, registerParams);
-            appExecutors.mainThread().execute(() -> callBack.onRegistrationSaved(registerParams.isEditMode()));
-        };
-
-        appExecutors.diskIO().execute(runnable);
-    }
-
-
-    public void saveRegistration(@NonNull List<CdpOutletEventClient> allClientEventList, @NonNull String jsonString,
-                                 @NonNull RegisterParams params) {
-        try {
-            List<String> currentFormSubmissionIds = new ArrayList<>();
-
-            for (int i = 0; i < allClientEventList.size(); i++) {
-                try {
-
-                    CdpOutletEventClient allClientEvent = allClientEventList.get(i);
-                    Client baseClient = allClientEvent.getClient();
-                    Event baseEvent = allClientEvent.getEvent();
-                    addEvent(params, currentFormSubmissionIds, baseEvent);
-                    updateOpenSRPId(jsonString, params, baseClient);
-                } catch (Exception e) {
-                    Timber.e(e, "ChwAllClientRegisterInteractor --> saveRegistration");
-                }
-            }
-
-            long lastSyncTimeStamp = getAllSharedPreferences().fetchLastUpdatedAtDate(0);
-            Date lastSyncDate = new Date(lastSyncTimeStamp);
-            getClientProcessorForJava().processClient(getSyncHelper().getEvents(currentFormSubmissionIds));
-            getAllSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
-        } catch (Exception e) {
-            Timber.e(e, "OpdRegisterInteractor --> saveRegistration");
-        }
     }
 
     @NotNull

@@ -4,10 +4,7 @@ import androidx.annotation.NonNull;
 
 import org.json.JSONObject;
 import org.smartregister.chw.lab.contract.BaseLabTestRequestsProfileContract;
-import org.smartregister.chw.lab.pojo.CdpOutletEventClient;
 import org.smartregister.chw.lab.util.LabJsonFormUtils;
-
-import java.util.List;
 
 public class BaseLabTestRequestModel implements BaseLabTestRequestsProfileContract.Model {
     @Override
@@ -15,11 +12,5 @@ public class BaseLabTestRequestModel implements BaseLabTestRequestsProfileContra
         JSONObject form = LabJsonFormUtils.getFormAsJson(formName);
         LabJsonFormUtils.getRegistrationForm(form, entityId, currentLocationId);
         return form;
-    }
-
-    @Override
-    public List<CdpOutletEventClient> processRegistration(String jsonString) {
-//        return OutletUtil.getOutletEventClient(jsonString);
-        return null;
     }
 }

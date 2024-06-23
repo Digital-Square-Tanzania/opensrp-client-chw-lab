@@ -2,10 +2,7 @@ package org.smartregister.chw.lab.model;
 
 import org.json.JSONObject;
 import org.smartregister.chw.lab.contract.BaseManifestDetailsActivityContract;
-import org.smartregister.chw.lab.pojo.CdpOutletEventClient;
 import org.smartregister.chw.lab.util.LabJsonFormUtils;
-
-import java.util.List;
 
 public class BaseManifestDetailsModel implements BaseManifestDetailsActivityContract.Model {
 

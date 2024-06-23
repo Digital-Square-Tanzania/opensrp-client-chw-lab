@@ -2,38 +2,22 @@ package org.smartregister.chw.lab.util;
 
 import static org.smartregister.util.Utils.getAllSharedPreferences;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Build;
-import android.telephony.TelephonyManager;
 import android.text.Html;
 import android.text.Spanned;
-import android.widget.Toast;
-
-import androidx.annotation.RequiresApi;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.opensrp.api.constants.Gender;
-import org.smartregister.lab.R;
 import org.smartregister.chw.lab.LabLibrary;
-import org.smartregister.chw.lab.contract.BaseCdpCallDialogContract;
 import org.smartregister.chw.lab.pojo.RegisterParams;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.Location;
+import org.smartregister.lab.R;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.EventClientRepository;
@@ -42,10 +26,8 @@ import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.util.JsonFormUtils;
-import org.smartregister.util.PermissionUtils;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -89,44 +71,6 @@ public class LabUtil {
             return Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY);
         } else {
             return Html.fromHtml(text);
-        }
-    }
-
-    @SuppressLint("HardwareIds")
-    public static boolean launchDialer(final Activity activity, final BaseCdpCallDialogContract.View callView, final String phoneNumber) {
-        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-
-            // set a pending call execution request
-            if (callView != null) {
-                callView.setPendingCallRequest(() -> LabUtil.launchDialer(activity, callView, phoneNumber));
-            }
-
-            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_PHONE_STATE}, PermissionUtils.PHONE_STATE_PERMISSION_REQUEST_CODE);
-
-            return false;
-        } else {
-
-            if (((TelephonyManager) activity.getSystemService(Context.TELEPHONY_SERVICE)).getLine1Number()
-                    == null) {
-
-                Timber.i("No dial application so we launch copy to clipboard...");
-
-                ClipboardManager clipboard = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
-                ClipData clip = ClipData.newPlainText(activity.getText(R.string.copied_phone_number), phoneNumber);
-                clipboard.setPrimaryClip(clip);
-
-                CopyToClipboardDialog copyToClipboardDialog = new CopyToClipboardDialog(activity, R.style.copy_clipboard_dialog);
-                copyToClipboardDialog.setContent(phoneNumber);
-                copyToClipboardDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                copyToClipboardDialog.show();
-                // no phone
-                Toast.makeText(activity, activity.getText(R.string.copied_phone_number), Toast.LENGTH_SHORT).show();
-
-            } else {
-                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phoneNumber, null));
-                activity.startActivity(intent);
-            }
-            return true;
         }
     }
 
@@ -233,7 +177,7 @@ public class LabUtil {
             String[] attributesArray = attribute.split(",");
             for (String attributeName : attributesArray) {
                 if (attributeName.trim().startsWith("HFR Code:")) {
-                    return attributeName.trim().substring(9).trim().replace("-","");
+                    return attributeName.trim().substring(9).trim().replace("-", "");
                 }
             }
         }

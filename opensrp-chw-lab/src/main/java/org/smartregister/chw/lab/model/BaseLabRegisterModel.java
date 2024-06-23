@@ -2,10 +2,7 @@ package org.smartregister.chw.lab.model;
 
 import org.json.JSONObject;
 import org.smartregister.chw.lab.contract.BaseLabRegisterContract;
-import org.smartregister.chw.lab.pojo.CdpOutletEventClient;
 import org.smartregister.chw.lab.util.LabJsonFormUtils;
-
-import java.util.List;
 
 public class BaseLabRegisterModel implements BaseLabRegisterContract.Model {
 
@@ -15,12 +12,6 @@ public class BaseLabRegisterModel implements BaseLabRegisterContract.Model {
         LabJsonFormUtils.getRegistrationForm(form, entityId, currentLocationId);
 
         return form;
-    }
-
-    @Override
-    public List<CdpOutletEventClient> processRegistration(String jsonString) {
-//        return OutletUtil.getOutletEventClient(jsonString);
-        return null;
     }
 
 

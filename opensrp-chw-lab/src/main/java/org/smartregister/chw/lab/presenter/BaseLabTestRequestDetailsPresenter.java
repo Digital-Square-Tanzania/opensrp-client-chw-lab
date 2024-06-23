@@ -6,16 +6,14 @@ import androidx.annotation.Nullable;
 
 import org.json.JSONObject;
 import org.smartregister.chw.lab.contract.BaseLabTestRequestsProfileContract;
-import org.smartregister.chw.lab.pojo.CdpOutletEventClient;
 import org.smartregister.chw.lab.pojo.RegisterParams;
 
 import java.lang.ref.WeakReference;
-import java.util.List;
 
 import timber.log.Timber;
 
 
-public class BaseLabTestRequestDetailsPresenter implements BaseLabTestRequestsProfileContract.Presenter {
+public class BaseLabTestRequestDetailsPresenter implements BaseLabTestRequestsProfileContract.Presenter, BaseLabTestRequestsProfileContract.InteractorCallBack {
     protected WeakReference<BaseLabTestRequestsProfileContract.View> view;
     protected BaseLabTestRequestsProfileContract.Interactor interactor;
     protected BaseLabTestRequestsProfileContract.Model model;
@@ -32,11 +30,6 @@ public class BaseLabTestRequestDetailsPresenter implements BaseLabTestRequestsPr
     @Override
     public void fillProfileData() {
         getView().setProfileViewWithData();
-    }
-
-    @Override
-    public void recordCDPButton(@Nullable String visitState) {
-        //Implement
     }
 
     @Override
@@ -71,12 +64,8 @@ public class BaseLabTestRequestDetailsPresenter implements BaseLabTestRequestsPr
     public void saveForm(String jsonString, RegisterParams registerParams) {
         //Use this for registration form
         try {
-            List<CdpOutletEventClient> cdpOutletEventClientList = model.processRegistration(jsonString);
-            if(cdpOutletEventClientList == null || cdpOutletEventClientList.isEmpty()){
-                return;
-            }
-            interactor.saveRegistration(cdpOutletEventClientList, jsonString, registerParams, this);
-        } catch (Exception e){
+            interactor.saveRegistration(jsonString, this);
+        } catch (Exception e) {
             Timber.e(e);
         }
     }

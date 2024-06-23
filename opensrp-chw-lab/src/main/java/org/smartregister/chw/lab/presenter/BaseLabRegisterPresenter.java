@@ -5,9 +5,8 @@ import android.util.Log;
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
 import org.smartregister.chw.lab.contract.BaseLabRegisterContract;
-import org.smartregister.lab.R;
-import org.smartregister.chw.lab.pojo.CdpOutletEventClient;
 import org.smartregister.chw.lab.pojo.RegisterParams;
+import org.smartregister.lab.R;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -19,8 +18,8 @@ public class BaseLabRegisterPresenter implements BaseLabRegisterContract.Present
     public static final String TAG = BaseLabRegisterPresenter.class.getName();
 
     protected WeakReference<BaseLabRegisterContract.View> viewReference;
-    private BaseLabRegisterContract.Interactor interactor;
     protected BaseLabRegisterContract.Model model;
+    private BaseLabRegisterContract.Interactor interactor;
 
     public BaseLabRegisterPresenter(BaseLabRegisterContract.View view, BaseLabRegisterContract.Model model, BaseLabRegisterContract.Interactor interactor) {
         viewReference = new WeakReference<>(view);
@@ -53,12 +52,8 @@ public class BaseLabRegisterPresenter implements BaseLabRegisterContract.Present
     public void saveForm(String jsonString, RegisterParams registerParams) {
         //Use this for registration form
         try {
-            List<CdpOutletEventClient> cdpOutletEventClientList = model.processRegistration(jsonString);
-            if(cdpOutletEventClientList == null || cdpOutletEventClientList.isEmpty()){
-                return;
-            }
-            interactor.saveRegistration(cdpOutletEventClientList, jsonString, registerParams, this);
-        } catch (Exception e){
+            interactor.saveRegistration(jsonString, this);
+        } catch (Exception e) {
             Timber.e(e);
         }
     }
@@ -77,16 +72,16 @@ public class BaseLabRegisterPresenter implements BaseLabRegisterContract.Present
 
     @Override
     public void onNoUniqueId() {
-        if(getView() != null)
+        if (getView() != null)
             getView().displayShortToast(R.string.no_unique_id);
     }
 
     @Override
     public void onUniqueIdFetched(Triple<String, String, String> triple, String entityId) {
-        if(getView() != null){
+        if (getView() != null) {
             try {
                 startForm(triple.getLeft(), entityId, triple.getMiddle(), triple.getRight());
-            } catch (Exception e){
+            } catch (Exception e) {
                 Timber.e(e);
                 getView().displayToast(R.string.error_unable_to_start_form);
             }

@@ -42,8 +42,6 @@ public interface Constants {
 
         String LAB_MANIFEST_DISPATCH = "lab_manifest_dispatch";
 
-        String CDP_OUTLET_REGISTRATION = "cdp_outlet_registration";
-
     }
 
     interface TABLES {

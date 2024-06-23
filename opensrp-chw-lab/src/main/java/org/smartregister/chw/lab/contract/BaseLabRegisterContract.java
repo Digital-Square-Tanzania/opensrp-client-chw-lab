@@ -4,11 +4,8 @@ import com.vijay.jsonwizard.domain.Form;
 
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
-import org.smartregister.chw.lab.pojo.CdpOutletEventClient;
 import org.smartregister.chw.lab.pojo.RegisterParams;
 import org.smartregister.view.contract.BaseRegisterContract;
-
-import java.util.List;
 
 public interface BaseLabRegisterContract {
 
@@ -36,15 +33,12 @@ public interface BaseLabRegisterContract {
 
         JSONObject getFormAsJson(String formName, String entityId, String currentLocationId) throws Exception;
 
-        List<CdpOutletEventClient> processRegistration(String jsonString);
-
     }
 
     interface Interactor {
 
         void saveRegistration(String jsonString, final InteractorCallBack callBack);
-        void saveRegistration(final List<CdpOutletEventClient> cdpOutletEventClientList, final String jsonString,
-                              final RegisterParams registerParams, final BaseLabRegisterContract.InteractorCallBack callBack);
+
         void getNextUniqueId(final Triple<String, String, String> triple, final BaseLabRegisterContract.InteractorCallBack callBack);
 
 
